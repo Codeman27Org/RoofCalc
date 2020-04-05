@@ -1,0 +1,20 @@
+import api_keys
+import requests
+import geocoder
+
+def location(address):
+    try:
+        result = geocoder.google(address, key=api_keys.GOOGLE_GEOCODE_API_KEY)
+    except:
+        print('failed to connect')
+        return None
+
+    location_parts = {}
+    location_parts['address'] = (result.housenumber + ' ' + result.street)
+    location_parts['city'] = (result.city)
+    location_parts['state'] = result.state
+    location_parts['zip'] = result.postal
+    location_parts['county'] = str.strip((result.county).replace('County', ''))
+    return location_parts
+
+print(location('3312-San-Domingo-St-Clearwater-FL-33759'))
