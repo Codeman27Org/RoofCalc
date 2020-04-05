@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
 import pandas as pd
-from urllib.request import urlopen, Request
+from urllib.request import urlopen
+import re
 
-def property_taxes(state, county):
+def property_taxes(state, county, house_price):
     url = 'https://smartasset.com/taxes/' + state +'-property-tax-calculator'
+    pattern = r'(.*)%'
 
     request = urlopen(url)
     response = request.read()
@@ -12,7 +14,12 @@ def property_taxes(state, county):
 
     table = soup.findAll('table')[7]
     df = pd.read_html(str(table))[0]
-    return df[df['County'] == county]['Average Effective Property Tax Rate'].values[0]
 
-print(property_taxes('fl', 'Jefferson'))
-print(property_taxes('fl', 'Alachua'))
+    tax_data = {}
+    tax_data['tax_rate'] = float(re.search(pattern, df[df['County'] == county]['Average Effective Property Tax Rate'].values[0]).group(1))/100
+    tax_data['tax_amt_yr'] = round(tax_data['tax_rate'] * house_price)
+    tax_data['tax_amt_mn'] = round(tax_data['tax_rate'] * house_price/12)
+
+    return tax_data
+
+#print(property_taxes('fl', 'Jefferson', 185900))

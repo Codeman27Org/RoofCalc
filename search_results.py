@@ -5,12 +5,12 @@ from pandas.io.json import json_normalize
 import api_keys
 
 #url= 'http://www.zillow.com/webservice/GetRegionChildren.htm'
-def search_results(address):
+def search_results(address, citystatezip):
     url = 'https://www.zillow.com/webservice/GetSearchResults.htm'
     params = {
         'zws-id': api_keys.ZILLOW_API_KEY,
-        'address': '3312-San-Domingo-St', #self._loc.state
-        'citystatezip': 'Clearwater-FL-33759',
+        'address': address, #self._loc.state
+        'citystatezip': citystatezip,
         'rentzestimate': True
     }
     try:
@@ -23,9 +23,9 @@ def search_results(address):
     df = pd.DataFrame.from_records(dict['SearchResults:searchresults']['response']['results']['result'])
 
     zestimates = {}
-    zestimates['zestimate'] = df['zestimate']['valuationRange']['high']['#text']
-    zestimates['rent_zestimate'] = df['rentzestimate']['amount']['#text']
+    zestimates['zestimate'] = float(df['zestimate']['valuationRange']['high']['#text'])
+    zestimates['rent_zestimate'] = float(df['rentzestimate']['amount']['#text'])
     return zestimates
 
-address = 'does not work yet'
-print(search_results(address))
+# address = 'does not work yet'
+# print(search_results(address))

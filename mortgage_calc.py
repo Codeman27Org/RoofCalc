@@ -17,5 +17,5 @@ def mortgage_calc_perc(house_price, down_payment_perc, interest_rate, loan_type)
     return round(loan*(monthly_rate*(1 + monthly_rate)**num_pmts)/((1 + monthly_rate)**num_pmts - 1))
 
 
-print(mortgage_calc(150000, 30000, 0.045, 30))
-print(mortgage_calc_perc(150000, 0.2, 0.045, 30))
+# print(mortgage_calc(150000, 30000, 0.045, 30))
+# print(mortgage_calc_perc(150000, 0.2, 0.045, 30))
