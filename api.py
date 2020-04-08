@@ -15,14 +15,21 @@ def api():
     monthly_payment = mortgage_calc_perc(zestimates['zestimate'], 0.2, mortgage_rate['rate'], mortgage_rate['years'])
     taxes = property_taxes(loc['state'], loc['county'], zestimates['zestimate'])
     insurance_amts = insurance(zestimates['zestimate'])
+
+    # Rent ratio
+        # house_price
+        # rental_estimate
+    # Cash on Cash Return
+        # Down payment
+        # Monthly Repairs (10%)
+        # Monthly Vacancy (10%)
+        # Property Management (10%)
+
+
     print(zestimates)
     print(mortgage_rate['rate'])
     print(monthly_payment)
     print(taxes)
     print(insurance_amts)
-    # Get location based on address
-    # Get zestimate and rental zestimate based on location
-    # Get mortgage rate based on loan type
-    # Get mortgage calc based on mortgage rate
 
 api()
