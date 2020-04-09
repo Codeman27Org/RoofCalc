@@ -3,7 +3,9 @@ from search_results import search_results
 from mortgage_rates import mortgage_rates
 from mortgage_calc import mortgage_calc, mortgage_calc_perc
 from property_taxes import property_taxes
-from insurance import insurance
+from property_insurance import property_insurance
+from mortgage_insurance import mortgage_insurance
+from flood_insurance import flood_insurance
 
 def api():
     loc = location('3312-San-Domingo-St-Clearwater-FL-33759')
@@ -14,22 +16,29 @@ def api():
     mortgage_rate = mortgage_rates('30-year fixed rate')
     monthly_payment = mortgage_calc_perc(zestimates['zestimate'], 0.2, mortgage_rate['rate'], mortgage_rate['years'])
     taxes = property_taxes(loc['state'], loc['county'], zestimates['zestimate'])
-    insurance_amts = insurance(zestimates['zestimate'])
+    pi = property_insurance(zestimates['zestimate'])
+    pmi = mortgage_insurance(zestimates['zestimate'] - monthly_payment['down_payment'])
+    fi = flood_insurance(zestimates['zestimate'])
 
     # Rent ratio
         # house_price
         # rental_estimate
+    # NOI (No P&I)
+        #
     # Cash on Cash Return
         # Down payment
+        # Rehab Costs
         # Monthly Repairs (10%)
         # Monthly Vacancy (10%)
         # Property Management (10%)
 
 
     print(zestimates)
-    print(mortgage_rate['rate'])
+    print(mortgage_rate)
     print(monthly_payment)
     print(taxes)
-    print(insurance_amts)
+    print(pi)
+    print(pmi)
+    print(fi)
 
 api()
