@@ -3,23 +3,28 @@ from search_results import search_results
 from mortgage_rates import mortgage_rates
 from mortgage_calc import mortgage_calc, mortgage_calc_perc
 from property_taxes import property_taxes
-from property_insurance import property_insurance
-from mortgage_insurance import mortgage_insurance
-from flood_insurance import flood_insurance
+from insurance import *
+from expenses import *
+from analyze import *
 
 def api():
     loc = location('3312-San-Domingo-St-Clearwater-FL-33759')
     address = loc['address'].replace(' ', '-')
     citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
 
-    zestimates = search_results(address, citystatezip)
-    mortgage_rate = mortgage_rates('30-year fixed rate')
-    monthly_payment = mortgage_calc_perc(zestimates['zestimate'], 0.2, mortgage_rate['rate'], mortgage_rate['years'])
-    taxes = property_taxes(loc['state'], loc['county'], zestimates['zestimate'])
-    pi = property_insurance(zestimates['zestimate'])
-    pmi = mortgage_insurance(zestimates['zestimate'] - monthly_payment['down_payment'])
-    fi = flood_insurance(zestimates['zestimate'])
+    data = {}
+    data['zestimates'] = search_results(address, citystatezip)
+    data['mortgage_rate'] = mortgage_rates('30-year fixed rate')
+    data['monthly_mortgage'] = mortgage_calc_perc(data['zestimates']['zestimate'], 0.2, data['mortgage_rate']['rate'], data['mortgage_rate']['years'])
+    data['taxes'] = property_taxes(loc['state'], loc['county'], data['zestimates']['zestimate'])
+    data['pi'] = property_insurance(data['zestimates']['zestimate'])
+    data['pmi'] = mortgage_insurance(data['zestimates']['zestimate'] - data['monthly_mortgage']['down_payment'])
+    data['fi'] = flood_insurance(data['zestimates']['zestimate'])
+    data['pm'] = property_management_perc(0.1, data['zestimates']['rent_zestimate'])
+    data['vacancy'] = vacancy(0.1, data['zestimates']['rent_zestimate'])
+    data['repairs'] = repairs(0.1, data['zestimates']['rent_zestimate'])
 
+    print(analyze(data))
     # Rent ratio
         # house_price
         # rental_estimate
@@ -32,13 +37,5 @@ def api():
         # Monthly Vacancy (10%)
         # Property Management (10%)
 
-
-    print(zestimates)
-    print(mortgage_rate)
-    print(monthly_payment)
-    print(taxes)
-    print(pi)
-    print(pmi)
-    print(fi)
 
 api()
