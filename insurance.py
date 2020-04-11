@@ -14,7 +14,7 @@ def property_insurance(house_price):
     return insurance
 
 # Assume 1% of of the entire loan amount
-def mortgage_insurance(loan):
+def mortgage_insurance(loan, down_payment):
     pmi_rate = 0.01
 
     insurance = {'type':'mortgage'}

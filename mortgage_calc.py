@@ -8,6 +8,7 @@ def mortgage_calc(house_price, down_payment, interest_rate, loan_type):
     mortgage = {}
     mortgage['monthly_payment'] = round(loan*(monthly_rate*(1 + monthly_rate)**num_pmts)/((1 + monthly_rate)**num_pmts - 1))
     mortgage['down_payment'] = down_payment
+    mortgage['loan_amount'] = house_price - down_payment
 
     return mortgage
 
@@ -20,7 +21,8 @@ def mortgage_calc_perc(house_price, down_payment_perc, interest_rate, loan_type)
 
     mortgage = {}
     mortgage['monthly_payment'] = round(loan*(monthly_rate*(1 + monthly_rate)**num_pmts)/((1 + monthly_rate)**num_pmts - 1))
-    mortgage['down_payment'] = (down_payment_perc * house_price)
+    mortgage['down_payment'] = round(down_payment_perc * house_price)
+    mortgage['loan_amount'] = house_price - (down_payment_perc * house_price)
 
     return mortgage
 
