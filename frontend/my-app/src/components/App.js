@@ -1,7 +1,6 @@
 import React from 'react'
 //import logo from './logo.svg'
 import '../styles/App.css'
-import { MDBCol, MDBFormInline, MDBIcon } from 'mdbreact'
 import SearchPage from './SearchPage'
 
 function App() {

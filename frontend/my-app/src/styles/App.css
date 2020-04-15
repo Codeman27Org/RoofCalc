@@ -3,7 +3,7 @@
 }
 
 .App-main {
-  background-color: RGB(255, 255, 255);
+  background-color: RGB(250, 250, 250);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,5 +13,5 @@
 }
 
 .roof {
-  color: #ec407a;
+  color: teal;
 }
