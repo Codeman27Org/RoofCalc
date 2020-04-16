@@ -5,8 +5,13 @@ import 'react-google-places-autocomplete/dist/index.min.css'
 import '../styles/SearchPage.css'
 
 class SearchPage extends Component {
+  state = {
+    address: 'dfdfd'
+  }
+
   search = (input) => {
     console.log(input)
+    this.setState({address: input.description})
   }
 
   render() {
@@ -14,10 +19,17 @@ class SearchPage extends Component {
       <MDBCol md='6'>
         <MDBFormInline className='md-form'>
           <GooglePlacesAutocomplete
-            apiKey = 'AIzaSyCgNXXDm46LHt0rmgndPsBIrbIYNYLGsM8'
+            onSelect={(e) => this.search(e)}
+            changeValue={(e) => console.log(e)}
+            onChangeText= { (text) =>  console.log(text) }
+            autocompletionRequest={{
+                componentRestrictions: {
+                  country: ['us'],
+                }
+            }}
           />
         </MDBFormInline>
-        <MDBBtn outline color='teal' rounded size='sm' type='submit' className='mr-auto rounded-pill' onClick={() => this.search('hello')}>
+        <MDBBtn outline color='teal' rounded size='sm' type='submit' className='mr-auto rounded-pill' onClick={() => this.search(this.state.address)}>
           Search
         </MDBBtn>
       </MDBCol>
