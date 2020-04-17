@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { MDBCol, MDBFormInline, MDBBtn } from 'mdbreact'
+import * as RealEstateAPI from '../RealEstateAPI';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import 'react-google-places-autocomplete/dist/index.min.css'
 import '../styles/SearchPage.css'
@@ -10,8 +11,7 @@ class SearchPage extends Component {
   }
 
   search = (input) => {
-    console.log(input)
-    this.setState({address: input.description})
+    RealEstateAPI.getAll(this.state.address)
   }
 
   render() {
@@ -19,8 +19,7 @@ class SearchPage extends Component {
       <MDBCol md='6'>
         <MDBFormInline className='md-form'>
           <GooglePlacesAutocomplete
-            onSelect={(e) => this.search(e)}
-            changeValue={(e) => console.log(e)}
+            onSelect={(e) => this.setState({address: e.description})}
             onChangeText= { (text) =>  console.log(text) }
             autocompletionRequest={{
                 componentRestrictions: {

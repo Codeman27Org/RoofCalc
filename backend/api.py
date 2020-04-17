@@ -1,3 +1,5 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from location import location
 from search_results import search_results
 from mortgage_rates import mortgage_rates
@@ -7,7 +9,13 @@ from insurance import *
 from expenses import *
 from analyze import *
 
-def api():
+application = Flask(__name__)
+CORS(application)
+
+@application.route('/analysis', methods=['GET'])
+def get_data():
+    street = request.args.get('address', default='')
+    print(address)
     user_input = {
         'house_price': 100000,
         'down_payment': {'amount': None, 'perc': 0.2},
@@ -32,6 +40,7 @@ def api():
     data['closing_costs'] = closing_costs_perc(data['monthly_mortgage']['loan_amount'])
     data['rehab_costs'] = user_input['rehab_costs']
 
-    analyze(data)
+    return jsonify(data)
 
-api()
+if __name__ == '__main__':
+    application.run(debug=True)
