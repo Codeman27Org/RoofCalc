@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from location import location
 from search_results import search_results
 from mortgage_rates import mortgage_rates
@@ -14,7 +14,7 @@ CORS(application)
 
 @application.route('/analysis', methods=['GET'])
 def get_data():
-    street = request.args.get('address', default='')
+    address = request.args.get('address', default='')
     print(address)
     user_input = {
         'house_price': 100000,
