@@ -3,8 +3,7 @@ import * as RealEstateAPI from '../RealEstateAPI';
 import '../styles/App.css'
 import SearchPage from './SearchPage'
 import Results from './Results'
-import { MDBAnimation } from 'mdbreact'
-import ReactTransitionGroup from 'react-addons-transition-group'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 class App extends Component {
   state = {
@@ -23,6 +22,7 @@ class App extends Component {
       RealEstateAPI.getAll(this.state.inputAddress).then(data => {
         this.setState({results: data})
       })
+
     }
     this.switchScreens()
   }
@@ -30,20 +30,34 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <main className='App-main'>
+        <TransitionGroup className='App-main'>
           <h1><span className='roof'>Roof</span>\Cal</h1>
           { this.state.showResults ?
-            <Results
-              results= {this.state.results}
-              switch = {this.switchScreens}
-            />
+            <CSSTransition
+              in={true}
+              appear={false}
+              key={1}
+              timeout={900}
+              classNames={'slide'}>
+                <Results
+                  results= {this.state.results}
+                  switch = {this.switchScreens}
+                />
+              </CSSTransition>
             :
-            <SearchPage
-              inputAddress = {this.state.inputAddress}
-              search = {this.search}
-            />
+            <CSSTransition
+              in={true}
+              appear={false}
+              key={2}
+              timeout={900}
+              classNames={'slide'}>
+              <SearchPage
+                inputAddress = {this.state.inputAddress}
+                search = {this.search}
+              />
+            </CSSTransition>
           }
-        </main>
+        </TransitionGroup>
       </div>
     )
   }
