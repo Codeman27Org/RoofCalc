@@ -4,6 +4,7 @@ import '../styles/App.css'
 import SearchPage from './SearchPage'
 import Results from './Results'
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 
 class App extends Component {
   state = {
@@ -29,36 +30,40 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
-        <TransitionGroup className='App-main'>
-          <h1><span className='roof'>Roof</span>\Cal</h1>
-          { this.state.showResults ?
-            <CSSTransition
-              in={true}
-              appear={false}
-              key={1}
-              timeout={900}
-              classNames={'slide'}>
-                <Results
-                  results= {this.state.results}
-                  switch = {this.switchScreens}
+      <MDBContainer className='App-main'>
+        <MDBRow>
+        <MDBCol md='6'>
+          <TransitionGroup >
+            { this.state.showResults ?
+              <CSSTransition
+                in={true}
+                appear={false}
+                key={1}
+                timeout={900}
+                classNames={'slide'}>
+                  <Results
+                    results= {this.state.results}
+                    switch = {this.switchScreens}
+                  />
+                </CSSTransition>
+              :
+              <CSSTransition
+                in={true}
+                appear={false}
+                key={2}
+                timeout={900}
+                classNames={'slide'}>
+
+                <SearchPage
+                  inputAddress = {this.state.inputAddress}
+                  search = {this.search}
                 />
               </CSSTransition>
-            :
-            <CSSTransition
-              in={true}
-              appear={false}
-              key={2}
-              timeout={900}
-              classNames={'slide'}>
-              <SearchPage
-                inputAddress = {this.state.inputAddress}
-                search = {this.search}
-              />
-            </CSSTransition>
-          }
-        </TransitionGroup>
-      </div>
+            }
+          </TransitionGroup>
+        </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     )
   }
 }

@@ -7,6 +7,7 @@ import '../styles/SearchPage.css'
 const SearchPage = (props) => {
     return (
       <MDBCol md='6'>
+        <h1><span className='roof'>Logo</span>\Here</h1>
         <MDBFormInline className='md-form'>
           <GooglePlacesAutocomplete
             autocompletionRequest={{
