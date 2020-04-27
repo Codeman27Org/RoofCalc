@@ -1,16 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as RealEstateAPI from '../RealEstateAPI';
 import '../styles/App.css'
 import SearchPage from './SearchPage'
 import Results from './Results'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
+import { Transition, } from "react-spring/renderprops";
 
 class App extends Component {
   state = {
     inputAddress: '',
     results: {},
-    showResults: false
+    showResults: true
   }
 
   switchScreens = () => {
@@ -29,41 +28,34 @@ class App extends Component {
   }
 
   render() {
+    let transformFromDir = this.state.showResults ? 'translate3d(-100%,0,0)' : 'translate3d(100%,0,0)'
+    let transformLeaveDir = this.state.showResults ? 'translate3d(100%,0,0)' : 'translate3d(-100%,0,0)'
+    
     return (
-      <MDBContainer className='App-main'>
-        <MDBRow>
-        <MDBCol md='6'>
-          <TransitionGroup >
-            { this.state.showResults ?
-              <CSSTransition
-                in={true}
-                appear={false}
-                key={1}
-                timeout={900}
-                classNames={'slide'}>
+      <div className='App-main'>
+          <Transition
+            items={this.state.showResults}
+            initial={false}
+            from={{ position: 'absolute', opacity: 0, transform: transformFromDir}}
+            enter={{ opacity: 1, transform: 'translate3d(0%,0,0)' }}
+            leave={{ opacity: 0, transform: transformLeaveDir }}>
+            {items =>
+              items
+                ? props => <div style={props}>
+                  <SearchPage
+                    inputAddress = {this.state.inputAddress}
+                    search = {this.search}
+                  />
+                </div>
+                : props => <div style={props}>
                   <Results
                     results= {this.state.results}
                     switch = {this.switchScreens}
                   />
-                </CSSTransition>
-              :
-              <CSSTransition
-                in={true}
-                appear={false}
-                key={2}
-                timeout={900}
-                classNames={'slide'}>
-
-                <SearchPage
-                  inputAddress = {this.state.inputAddress}
-                  search = {this.search}
-                />
-              </CSSTransition>
+                </div>
             }
-          </TransitionGroup>
-        </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+        </Transition>
+      </div>
     )
   }
 }

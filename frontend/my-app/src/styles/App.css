@@ -1,44 +1,16 @@
 .App-main {
-
   background-color: RGB(250, 250, 250);
-  min-height: 100vh;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  /*CAUSING ISSUES WITH ANIMATION */
-  /* text-align: center;
+  justify-content: center;
   align-items: center;
-  justify-content: center; */
-  font-size: calc(10px + 2vmin);
+  will-change: transform, opacity;
+
+  /*CAUSING ISSUES WITH ANIMATION */
 }
 
 .roof {
   color: teal;
-}
-
-/* ENTER TRANSITION */
-/* Declare transition start properties*/
-.slide-enter {
-    transform: translateX(-100vw);
-    opacity: 0;
-    position: absolute;
-}
-
-/* Declare transition properties */
-.slide-enter.slide-enter-active {
-    transform: translateX(0);
-    opacity: 1;
-    transition: all 300ms linear 300ms;
-}
-
-/* EXIT TRANSITION */
-.slide-exit {
-    transform: translateX(0);
-    opacity: 1;
-
-}
-
-.slide-exit.slide-exit-active {
-    transform: translateX(100vw);
-    opacity: 0;
-    transition: all 300ms linear
 }

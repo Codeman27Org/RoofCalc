@@ -6,7 +6,7 @@ import '../styles/SearchPage.css'
 
 const SearchPage = (props) => {
     return (
-      <MDBCol md='6'>
+      <MDBCol className='search-page' md='12'>
         <h1><span className='roof'>Logo</span>\Here</h1>
         <MDBFormInline className='md-form'>
           <GooglePlacesAutocomplete
@@ -17,9 +17,11 @@ const SearchPage = (props) => {
             }}
           />
         </MDBFormInline>
-        <MDBBtn outline color='teal' rounded size='sm' type='submit' className='mr-auto rounded-pill' onClick={() => props.search(props.inputAddress)}>
-          Search
-        </MDBBtn>
+        <div className='text-center'>
+          <MDBBtn outline color='teal' rounded size='sm' type='submit' className='mr-auto rounded-pill' onClick={() => props.search(props.inputAddress)}>
+            Search
+          </MDBBtn>
+        </div>
       </MDBCol>
     )
 }
