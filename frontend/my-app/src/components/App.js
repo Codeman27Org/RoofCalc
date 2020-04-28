@@ -4,6 +4,15 @@ import '../styles/App.css'
 import SearchPage from './SearchPage'
 import Results from './Results'
 import { Transition, } from "react-spring/renderprops";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { teal, green } from "@material-ui/core/colors";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: teal,
+    secondary: green
+  }
+})
 
 class App extends Component {
   state = {
@@ -30,9 +39,10 @@ class App extends Component {
   render() {
     let transformFromDir = this.state.showResults ? 'translate3d(-100%,0,0)' : 'translate3d(100%,0,0)'
     let transformLeaveDir = this.state.showResults ? 'translate3d(100%,0,0)' : 'translate3d(-100%,0,0)'
-    
+
     return (
       <div className='App-main'>
+        <MuiThemeProvider theme={theme}>
           <Transition
             items={this.state.showResults}
             initial={false}
@@ -54,7 +64,8 @@ class App extends Component {
                   />
                 </div>
             }
-        </Transition>
+          </Transition>
+        </MuiThemeProvider>
       </div>
     )
   }
