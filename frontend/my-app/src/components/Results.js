@@ -1,36 +1,27 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%',
-//   },
-//   heading: {
-//     fontSize: theme.typography.pxToRem(15),
-//     fontWeight: theme.typography.fontWeightRegular,
-//   },
-// }))
 
 const Results = (props) => {
-  //const classes = useStyles();
-
   return (
-    <div>
+    <div className='results'>
       <h1><span className='roof'>Logo</span>\Here</h1>
       <div className='text-center'>
+      <div className='accordion-area'>
         <ExpansionPanel>
           <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon className='expand-icon'/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            className='accordion-summary'
           >
-            <Typography className='{classes.heading}'>Expansion Panel 1</Typography>
+            <Typography>Principal & Interest</Typography>
+            <Typography className='accordion-total'>$1,300/Mo</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
@@ -39,9 +30,12 @@ const Results = (props) => {
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+      </div>
+      <div className='button-box'>
         <Button variant='outlined' color='primary' onClick={() => props.switch()}>
           Back
         </Button>
+      </div>
       </div>
     </div>
   )

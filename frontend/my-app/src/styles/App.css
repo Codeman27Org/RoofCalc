@@ -6,11 +6,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  will-change: transform, opacity;
-
-  /*CAUSING ISSUES WITH ANIMATION */
+  /* will-change: transform, opacity; */
 }
 
 .roof {
+  color: teal;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-box {
+  margin-top: 15px;
+}
+
+.accordion-area  {
+  margin: 0 5% 0 5%;
+}
+
+.accordion-total {
+  margin-left: auto !important;
+}
+
+.expand-icon {
   color: teal;
 }
