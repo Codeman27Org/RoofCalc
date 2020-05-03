@@ -46,9 +46,10 @@ class App extends Component {
           <Transition
             items={this.state.showResults}
             initial={false}
-            from={{ position: 'absolute', opacity: 0, transform: transformFromDir}}
-            enter={{ opacity: 1, transform: 'translate3d(0%,0,0)' }}
-            leave={{ opacity: 0, transform: transformLeaveDir }}>
+            from={{ position: 'absolute', opacity: 0, transform: transformFromDir, width: '80%'}}
+            enter={{ opacity: 1, transform: 'translate3d(0%,0,0)', width: '80%'}}
+            leave={{ opacity: 0, transform: transformLeaveDir, width: '80%' }}
+            >
             {items =>
               items
                 ? props => <div style={props}>

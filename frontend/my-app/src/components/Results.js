@@ -5,13 +5,27 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 const Results = (props) => {
+  const [values, setValues] = React.useState({
+      amount: '',
+      password: '',
+      weight: '',
+      weightRange: '',
+      showPassword: false,
+    })
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  }
+
   return (
     <div className='results'>
       <h1><span className='roof'>Logo</span>\Here</h1>
-      <div className='text-center'>
       <div className='accordion-area'>
         <ExpansionPanel>
           <ExpansionPanelSummary
@@ -24,10 +38,15 @@ const Results = (props) => {
             <Typography className='accordion-total'>$1,300/Mo</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography>
+            <FormControl fullWidth>
+              <InputLabel htmlFor="standard-adornment-amount">Home price</InputLabel>
+              <Input
+                id="standard-adornment-amount"
+                value={values.amount}
+                onChange={handleChange('amount')}
+                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              />
+            </FormControl>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
@@ -35,7 +54,6 @@ const Results = (props) => {
         <Button variant='outlined' color='primary' onClick={() => props.switch()}>
           Back
         </Button>
-      </div>
       </div>
     </div>
   )

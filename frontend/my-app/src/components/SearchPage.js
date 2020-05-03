@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 
 const SearchPage = (props) => {
     return (
-      <div className='search-page' md='12'>
+      <div className='search-page'>
         <h1><span className='roof'>Logo</span>\Here</h1>
         <div className='md-form'>
           <GooglePlacesAutocomplete

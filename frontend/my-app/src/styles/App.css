@@ -13,7 +13,7 @@
   color: teal;
 }
 
-.results {
+.results, .search-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@
 }
 
 .accordion-area  {
-  margin: 0 5% 0 5%;
+  width: 100% !important;
 }
 
 .accordion-total {
