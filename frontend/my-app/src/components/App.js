@@ -25,15 +25,18 @@ class App extends Component {
     this.setState({showResults: this.state.showResults ? false : true})
   }
 
-  search = (input) => {
+  updateAddress = (input) => {
     this.setState({inputAddress: input})
+  }
+
+  search = () => {
     if(this.state.inputAddress !== ''){
       RealEstateAPI.getAll(this.state.inputAddress).then(data => {
         this.setState({results: data})
+        this.switchScreens()
+        console.log(this.state.results)
       })
-
     }
-    this.switchScreens()
   }
 
   render() {
@@ -54,14 +57,14 @@ class App extends Component {
               items
                 ? props => <div style={props}>
                   <SearchPage
-                    inputAddress = {this.state.inputAddress}
-                    search = {this.search}
+                    updateAddress={this.updateAddress}
+                    search={this.search}
                   />
                 </div>
                 : props => <div style={props}>
                   <Results
-                    results= {this.state.results}
-                    switch = {this.switchScreens}
+                    results={this.state.results}
+                    switch={this.switchScreens}
                   />
                 </div>
             }

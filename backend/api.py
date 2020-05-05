@@ -14,6 +14,8 @@ CORS(application)
 
 @application.route('/analysis', methods=['GET'])
 def get_data():
+
+    
     address = request.args.get('address', default='')
     print(address)
     user_input = {

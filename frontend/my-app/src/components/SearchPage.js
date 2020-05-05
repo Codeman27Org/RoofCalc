@@ -10,6 +10,10 @@ const SearchPage = (props) => {
         <h1><span className='roof'>Logo</span>\Here</h1>
         <div className='md-form'>
           <GooglePlacesAutocomplete
+            onSelect={({ description }) => (
+                props.updateAddress(description)
+              )}
+            onChange={() => {console.log('change')}}
             autocompletionRequest={{
                 componentRestrictions: {
                   country: ['us'],

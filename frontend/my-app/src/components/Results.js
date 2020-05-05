@@ -12,11 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 
 const Results = (props) => {
   const [values, setValues] = React.useState({
-      amount: '',
-      password: '',
-      weight: '',
-      weightRange: '',
-      showPassword: false,
+      amount: props.results.monthly_mortgage.loan_amount.toLocaleString()
     })
 
   const handleChange = (prop) => (event) => {
