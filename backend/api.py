@@ -14,20 +14,17 @@ CORS(application)
 
 @application.route('/analysis', methods=['GET'])
 def get_data():
-
-    
-    address = request.args.get('address', default='')
-    print(address)
     user_input = {
-        'house_price': 100000,
-        'down_payment': {'amount': None, 'perc': 0.2},
-        'rehab_costs': 0
-        }
-
+        'rehab_costs': 20000,
+        'address': ''
+    }
+    user_input['address'] = request.args.get('address', default='')
+    user_input['address'] = user_input['address'].replace(',', '').replace(' ', '-')
+    # # print(address)
     loc = location('102-59th-Ave-E-A-Bradenton-FL-34203')
     address = loc['address'].replace(' ', '-')
     citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
-
+    #
     data = {}
     data['zestimates'] = search_results(address, citystatezip)
     data['mortgage_rate'] = mortgage_rates('30-year fixed rate')
@@ -41,6 +38,7 @@ def get_data():
     data['repairs'] = repairs(0.1, data['zestimates']['rent_zestimate'])
     data['closing_costs'] = closing_costs_perc(data['monthly_mortgage']['loan_amount'])
     data['rehab_costs'] = user_input['rehab_costs']
+    data['input_address'] = user_input['address']
 
     return jsonify(data)
 
