@@ -12,11 +12,11 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 
 const Results = (props) => {
   const [values, setValues] = React.useState({
-      amount: props.results.monthly_mortgage.loan_amount.toLocaleString()
+      amount: props.results.zestimates.zestimate.toLocaleString()
     })
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({ ...values.toLocaleString(), [prop]: event.target.value});
   }
 
   return (

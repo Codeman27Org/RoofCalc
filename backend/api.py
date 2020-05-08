@@ -20,8 +20,8 @@ def get_data():
     }
     user_input['address'] = request.args.get('address', default='')
     user_input['address'] = user_input['address'].replace(',', '').replace(' ', '-')
-    # # print(address)
-    loc = location('102-59th-Ave-E-A-Bradenton-FL-34203')
+
+    loc = location(user_input['address'])
     address = loc['address'].replace(' ', '-')
     citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
     #

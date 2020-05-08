@@ -23,9 +23,18 @@ def search_results(address, citystatezip):
     df = pd.DataFrame.from_records(dict['SearchResults:searchresults']['response']['results']['result'])
 
     zestimates = {}
-    zestimates['zestimate'] = float(df['zestimate']['valuationRange']['high']['#text'])
-    zestimates['rent_zestimate'] = float(df['rentzestimate']['amount']['#text'])
+    try:
+        zestimates['zestimate'] = float(df['zestimate']['amount']['#text'])
+        zestimates['rent_zestimate'] = float(df['rentzestimate']['amount']['#text'])
+    except:
+        zestimates['zestimate'] = 0
+        zestimates['rent_zestimate'] = 0
+
     return zestimates
 
 # address = 'does not work yet'
-# print(search_results(address))
+from location import location
+loc = location('1347-White-Ave-Grand-Junction-CO-81501')
+address = loc['address'].replace(' ', '-')
+citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
+print(search_results(address, citystatezip))

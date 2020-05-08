@@ -16,5 +16,3 @@ def location(address):
     location_parts['zip'] = result.postal
     location_parts['county'] = str.strip((result.county).replace('County', ''))
     return location_parts
-
-# print(location('3312-San-Domingo-St-Clearwater-FL-33759'))
