@@ -34,3 +34,8 @@
 .expand-icon {
   color: teal;
 }
+
+.google-places-autocomplete__input:focus {
+  border-bottom: 1px solid teal !important;
+  box-shadow: 0 1px 0 0 teal !important;
+}

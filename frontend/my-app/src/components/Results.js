@@ -5,18 +5,23 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
+
+// <Input
+//   id='standard-adornment-amount'
+//   value={values.amount}
+//   onChange={handleChange('amount')}
+//   startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+// />
 
 const Results = (props) => {
   const [values, setValues] = React.useState({
-      amount: props.results.zestimates.zestimate.toLocaleString()
+      amount: props.results.zestimates.zestimate
     })
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values.toLocaleString(), [prop]: event.target.value});
+    setValues({ ...values, [prop]: event.target.value});
   }
 
   return (
@@ -26,8 +31,8 @@ const Results = (props) => {
         <ExpansionPanel>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon className='expand-icon'/>}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+            aria-controls='panel1a-content'
+            id='panel1a-header'
             className='accordion-summary'
           >
             <Typography>Principal & Interest</Typography>
@@ -35,12 +40,25 @@ const Results = (props) => {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <FormControl fullWidth>
-              <InputLabel htmlFor="standard-adornment-amount">Home price</InputLabel>
-              <Input
-                id="standard-adornment-amount"
-                value={values.amount}
-                onChange={handleChange('amount')}
-                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              <CurrencyTextField
+                  label='Home price'
+                  variant='standard'
+                  value={values.amount}
+                  currencySymbol='$'
+                  decimalPlaces = {0}
+                  outputFormat='string'
+                  className='input-field'
+                  onChange={(event, value)=> handleChange(value)}
+              />
+              <CurrencyTextField
+                  label='Home price'
+                  variant='standard'
+                  value={values.amount}
+                  currencySymbol='$'
+                  decimalPlaces = {0}
+                  outputFormat='string'
+                  className='input-field'
+                  onChange={(event, value)=> handleChange(value)}
               />
             </FormControl>
           </ExpansionPanelDetails>

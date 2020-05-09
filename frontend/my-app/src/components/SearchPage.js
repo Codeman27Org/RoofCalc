@@ -13,6 +13,7 @@ const SearchPage = (props) => {
             onSelect={({ description }) => (
                 props.updateAddress(description)
               )}
+            className='input-field'
             onChange={() => {console.log('change')}}
             autocompletionRequest={{
                 componentRestrictions: {
