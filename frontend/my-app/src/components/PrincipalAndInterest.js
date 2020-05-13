@@ -36,10 +36,31 @@ const PrincipalAndInterest = (props) => {
               currencySymbol='$'
               decimalPlaces = {0}
               outputFormat='string'
-              className='input-field'
               textAlign='left'
               onChange={(event, value)=> handleChange(value)}
           />
+          <div className='two-column'>
+            <CurrencyTextField
+                label='Down Payment'
+                variant='standard'
+                value={props.values.zestimate}
+                currencySymbol='$'
+                decimalPlaces = {0}
+                outputFormat='string'
+                textAlign='left'
+                onChange={(event, value)=> handleChange(value)}
+            />
+            <CurrencyTextField
+                label=' '
+                variant='standard'
+                value={props.values.zestimate}
+                currencySymbol='$'
+                decimalPlaces = {0}
+                outputFormat='string'
+                textAlign='left'
+                onChange={(event, value)=> handleChange(value)}
+            />
+          </div>
         </FormControl>
       </ExpansionPanelDetails>
     </ExpansionPanel>

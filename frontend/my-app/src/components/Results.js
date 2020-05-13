@@ -1,10 +1,9 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import PrincipalAndInterest from './PrincipalAndInterest'
 
 const Results = (props) => {
-  const [values, setValues] = React.useState({
+  const [values] = React.useState({
       zestimate: props.results.zestimates.zestimate
     })
 
