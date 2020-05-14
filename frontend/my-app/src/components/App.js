@@ -34,7 +34,6 @@ class App extends Component {
       RealEstateAPI.getAll(this.state.inputAddress).then(data => {
         this.setState({results: data})
         this.switchScreens()
-        console.log(this.state.results)
       })
     }
   }

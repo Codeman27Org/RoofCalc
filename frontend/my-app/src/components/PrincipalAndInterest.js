@@ -9,7 +9,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = React.useState({
-      amount: props.values.zestimate
+      zestimate: props.values.zestimates.zestimate,
+      downPayment: props.values.monthly_mortgage.down_payment,
+
     })
 
   const handleChange = (prop) => (event) => {
@@ -18,6 +20,7 @@ const PrincipalAndInterest = (props) => {
 
   return (
     <ExpansionPanel>
+    {console.log(props.values)}
       <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon className='expand-icon'/>}
       aria-controls='panel1a-content'
@@ -32,7 +35,7 @@ const PrincipalAndInterest = (props) => {
           <CurrencyTextField
               label='Home price'
               variant='standard'
-              value={props.values.zestimate}
+              value={values.zestimate}
               currencySymbol='$'
               decimalPlaces = {0}
               outputFormat='string'
@@ -43,7 +46,7 @@ const PrincipalAndInterest = (props) => {
             <CurrencyTextField
                 label='Down Payment'
                 variant='standard'
-                value={props.values.zestimate}
+                value={values.downPayment}
                 currencySymbol='$'
                 decimalPlaces = {0}
                 outputFormat='string'
@@ -54,8 +57,8 @@ const PrincipalAndInterest = (props) => {
                 label=' '
                 variant='standard'
                 value={props.values.zestimate}
-                currencySymbol='$'
-                decimalPlaces = {0}
+                currencySymbol='%'
+                decimalPlaces = {2}
                 outputFormat='string'
                 textAlign='left'
                 onChange={(event, value)=> handleChange(value)}
