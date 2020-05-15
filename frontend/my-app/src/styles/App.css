@@ -39,7 +39,7 @@
   color: teal !important;
 }
 
-.MuiInput-underline:after {
+.MuiFilledInput-underline:after {
   border-bottom: 2px solid teal !important;
 }
 

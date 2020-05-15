@@ -19,6 +19,7 @@ def mortgage_rates(loan_type):
     rate_data = {}
     rate_data['rate'] = float(re.search(pattern, df[df['Product'] == loan_type]['Interest rate'].values[0]).group(1))/100
     rate_data['years'] = float(re.search(pattern2, df[df['Product'] == loan_type]['Product'].values[0]).group(1))
+    rate_data['loan_type'] = loan_type
 
     return rate_data
 

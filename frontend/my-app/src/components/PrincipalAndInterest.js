@@ -6,12 +6,15 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import TextField from '@material-ui/core/TextField'
 
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = React.useState({
       zestimate: props.values.zestimates.zestimate,
       downPayment: props.values.monthly_mortgage.down_payment,
-
+      downPaymentPerc: props.values.monthly_mortgage.down_payment_perc,
+      loanType: props.values.mortgage_rate.loan_type,
+      rate: props.values.mortgage_rate.rate,
     })
 
   const handleChange = (prop) => (event) => {
@@ -34,7 +37,7 @@ const PrincipalAndInterest = (props) => {
         <FormControl fullWidth>
           <CurrencyTextField
               label='Home price'
-              variant='standard'
+              variant='filled'
               value={values.zestimate}
               currencySymbol='$'
               decimalPlaces = {0}
@@ -45,7 +48,7 @@ const PrincipalAndInterest = (props) => {
           <div className='two-column'>
             <CurrencyTextField
                 label='Down Payment'
-                variant='standard'
+                variant='filled'
                 value={values.downPayment}
                 currencySymbol='$'
                 decimalPlaces = {0}
@@ -55,10 +58,28 @@ const PrincipalAndInterest = (props) => {
             />
             <CurrencyTextField
                 label=' '
-                variant='standard'
-                value={props.values.zestimate}
+                variant='filled'
+                value={values.downPaymentPerc * 100}
                 currencySymbol='%'
-                decimalPlaces = {2}
+                decimalPlaces = {0}
+                outputFormat='string'
+                textAlign='left'
+                onChange={(event, value)=> handleChange(value)}
+            />
+          </div>
+          <div className='two-column'>
+            <TextField
+                label='Loan Program'
+                variant='filled'
+                value={values.loanType}
+                onChange={(event, value)=> handleChange(value)}
+            />
+            <CurrencyTextField
+                label='Interest Rate'
+                variant='filled'
+                value={values.rate * 100}
+                currencySymbol='%'
+                decimalPlaces = {3}
                 outputFormat='string'
                 textAlign='left'
                 onChange={(event, value)=> handleChange(value)}
