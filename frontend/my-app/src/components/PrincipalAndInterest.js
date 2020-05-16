@@ -17,13 +17,16 @@ const PrincipalAndInterest = (props) => {
       rate: props.values.mortgage_rate.rate,
     })
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value});
+  // const handleChange = (prop) => (event) => {
+  //   setValues({ ...values, [prop]: event.target.value})
+  // }
+  const handleChange = (event, value) => {
+    setValues({ ...values, [event.target.name]: event.target.value})
   }
+
 
   return (
     <ExpansionPanel>
-    {console.log(props.values)}
       <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon className='expand-icon'/>}
       aria-controls='panel1a-content'
@@ -38,51 +41,56 @@ const PrincipalAndInterest = (props) => {
           <CurrencyTextField
               label='Home price'
               variant='filled'
+              name='zestimate'
               value={values.zestimate}
               currencySymbol='$'
               decimalPlaces = {0}
               outputFormat='string'
               textAlign='left'
-              onChange={(event, value)=> handleChange(value)}
+              onChange={(event, value)=> handleChange(event, value)}
           />
           <div className='two-column'>
             <CurrencyTextField
                 label='Down Payment'
                 variant='filled'
+                name='downPayment'
                 value={values.downPayment}
                 currencySymbol='$'
                 decimalPlaces = {0}
                 outputFormat='string'
                 textAlign='left'
-                onChange={(event, value)=> handleChange(value)}
+                onChange={(event, value)=> handleChange(event, value)}
             />
             <CurrencyTextField
                 label=' '
                 variant='filled'
-                value={values.downPaymentPerc * 100}
+                name='downPaymentPerc'
+                value={values.downPaymentPerc}
                 currencySymbol='%'
                 decimalPlaces = {0}
                 outputFormat='string'
                 textAlign='left'
-                onChange={(event, value)=> handleChange(value)}
+                onChange={(event, value)=> handleChange(event, value)}
             />
           </div>
           <div className='two-column'>
             <TextField
                 label='Loan Program'
                 variant='filled'
+                name='loanType'
                 value={values.loanType}
-                onChange={(event, value)=> handleChange(value)}
+                onChange={(event, value)=> handleChange(event, value)}
             />
             <CurrencyTextField
                 label='Interest Rate'
                 variant='filled'
-                value={values.rate * 100}
+                name='rate'
+                value={values.rate}
                 currencySymbol='%'
                 decimalPlaces = {3}
                 outputFormat='string'
                 textAlign='left'
-                onChange={(event, value)=> handleChange(value)}
+                onChange={(event, value)=> handleChange(event, value)}
             />
           </div>
         </FormControl>
