@@ -8,9 +8,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import { Icon, InlineIcon } from '@iconify/react'
-import percentIcon from '@iconify/icons-mdi/percent'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = React.useState({
@@ -21,8 +18,19 @@ const PrincipalAndInterest = (props) => {
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
     })
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0
+  })
+
   const handleChange = (event, value) => {
-    setValues({ ...values, [event.target.name]: event.target.value})
+    if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
+      console.log(event.target.value)
+      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(',', ''))})
+    } else {
+      setValues({ ...values, [event.target.name]: event.target.value})
+    }
   }
 
 
@@ -40,28 +48,33 @@ const PrincipalAndInterest = (props) => {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
-          <CurrencyTextField
-              label='Home price'
-              variant='filled'
-              name='zestimate'
-              value={values.zestimate}
-              currencySymbol='$'
-              decimalPlaces = {0}
-              outputFormat='string'
-              textAlign='left'
-              onChange={(event, value)=> handleChange(event, value)}
+        <TextField
+            label='Home Price'
+            variant='filled'
+            name='zestimate'
+            value={values.zestimate}
+            InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <p style={{marginBottom: '0px'}}>$</p>
+                  </InputAdornment>
+                ),
+              }}
+            onChange={(event, value)=> handleChange(event, value)}
           />
           <div className='two-column'>
-            <CurrencyTextField
+            <TextField
                 label='Down Payment'
                 variant='filled'
                 name='downPayment'
                 value={values.downPayment}
-                currencySymbol='$'
-                decimalPlaces = {0}
-                outputFormat='string'
-                minimumValue = '0'
-                textAlign='left'
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>$</p>
+                      </InputAdornment>
+                    ),
+                  }}
                 onChange={(event, value)=> handleChange(event, value)}
             />
             <TextField
@@ -72,7 +85,7 @@ const PrincipalAndInterest = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary">%</p>
+                        <p style={{marginBottom: '0px'}}>%</p>
                       </InputAdornment>
                     ),
                   }}
@@ -95,7 +108,7 @@ const PrincipalAndInterest = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary">%</p>
+                        <p style={{marginBottom: '0px'}}>%</p>
                       </InputAdornment>
                     ),
                   }}

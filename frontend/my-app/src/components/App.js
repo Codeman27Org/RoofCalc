@@ -11,6 +11,13 @@ const theme = createMuiTheme({
   palette: {
     primary: teal,
     secondary: green
+  },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        'font-weight': 'bold'
+      }
+    }
   }
 })
 
