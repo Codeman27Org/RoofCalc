@@ -1,6 +1,5 @@
 import React from 'react'
 import FormControl from '@material-ui/core/FormControl';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
@@ -11,12 +10,16 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = React.useState({
-      zestimate: props.values.zestimates.zestimate,
-      downPayment: props.values.monthly_mortgage.down_payment,
+      zestimate: props.values.zestimates.zestimate.toLocaleString('en-US'),
+      downPayment: props.values.monthly_mortgage.down_payment.toLocaleString('en-US'),
       downPaymentPerc: props.values.monthly_mortgage.down_payment_perc * 100,
       loanType: props.values.mortgage_rate.loan_type,
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
     })
+
+    React.useEffect(() => {
+       //console.log(values.zestimate)
+     }, [values]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -26,17 +29,15 @@ const PrincipalAndInterest = (props) => {
 
   const handleChange = (event, value) => {
     if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
-      console.log(event.target.value)
-      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(',', ''))})
+      console.log(formatter.format(event.target.value.toString().replace(/([,$])/g, '')))
+      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).toString().replace('$', '')})
     } else {
       setValues({ ...values, [event.target.name]: event.target.value})
     }
   }
 
-
   return (
     <ExpansionPanel>
-      {console.log(values)}
       <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon className='expand-icon'/>}
       aria-controls='panel1a-content'
