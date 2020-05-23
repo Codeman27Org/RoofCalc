@@ -15,11 +15,16 @@ const PrincipalAndInterest = (props) => {
       downPaymentPerc: props.values.monthly_mortgage.down_payment_perc * 100,
       loanType: props.values.mortgage_rate.loan_type,
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
+      monthlyPayment: ''
     })
 
     React.useEffect(() => {
-       //console.log(values.zestimate)
-     }, [values]);
+     monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
+    }, []);
+
+    React.useEffect(() => {
+      monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
+    }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -27,14 +32,25 @@ const PrincipalAndInterest = (props) => {
     minimumFractionDigits: 0
   })
 
+  const monthlyPaymentCalc = (housePrice, downPayment, loanType, rate) => {
+    let loan = housePrice.toString().replace(/,/g, '') - downPayment.toString().replace(/,/g, '')
+    let numPayments = parseInt(loanType.substring(0, 2)) * 12 // 12 Months in year
+    let monthlyRate = parseFloat((rate/100)/12) // 12 Months in year
+    let monthlyPayment = Math.round(loan*(monthlyRate*Math.pow((1 + monthlyRate), numPayments))/(Math.pow((1 + monthlyRate), numPayments) - 1))
+
+    setValues({...values, monthlyPayment: formatter.format(monthlyPayment)})
+  }
+
   const handleChange = (event, value) => {
     if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
-      console.log(formatter.format(event.target.value.toString().replace(/([,$])/g, '')))
-      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).toString().replace('$', '')})
+      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).toString().replace('$', '')},
+        monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate))
     } else {
-      setValues({ ...values, [event.target.name]: event.target.value})
+      setValues({ ...values, [event.target.name]: event.target.value},
+        monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate))
     }
   }
+
 
   return (
     <ExpansionPanel>
@@ -45,7 +61,7 @@ const PrincipalAndInterest = (props) => {
       className='accordion-summary'
       >
         <Typography>Principal & Interest</Typography>
-        <Typography className='accordion-total'>$1,300/Mo</Typography>
+        <Typography className='accordion-total'>{values.monthlyPayment}/Mo</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
