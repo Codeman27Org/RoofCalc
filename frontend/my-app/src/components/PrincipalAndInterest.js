@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 
 const PrincipalAndInterest = (props) => {
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
       zestimate: props.values.zestimates.zestimate.toLocaleString('en-US'),
       downPayment: props.values.monthly_mortgage.down_payment.toLocaleString('en-US'),
       downPaymentPerc: props.values.monthly_mortgage.down_payment_perc * 100,
@@ -18,13 +18,21 @@ const PrincipalAndInterest = (props) => {
       monthlyPayment: ''
     })
 
-    React.useEffect(() => {
-     monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
-    }, []);
+  useEffect(() => {
+    monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
+  }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
 
-    React.useEffect(() => {
-      monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
-    }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
+  useEffect(() => {
+    downPaymentCalc('amount', values.downPayment, values.zestimate)
+  }, [values.downPayment]);
+
+  useEffect(() => {
+    downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
+  }, [values.downPaymentPerc]);
+
+  useEffect(() => {
+   monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
+  }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -41,13 +49,20 @@ const PrincipalAndInterest = (props) => {
     setValues({...values, monthlyPayment: formatter.format(monthlyPayment)})
   }
 
+  const downPaymentCalc = (type, value, housePrice) => {
+    if (type === 'percent') {
+      setValues({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
+    }
+    else {
+      setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(0)})
+    }
+  }
+
   const handleChange = (event, value) => {
     if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
-      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).toString().replace('$', '')},
-        monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate))
+      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
     } else {
-      setValues({ ...values, [event.target.name]: event.target.value},
-        monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate))
+      setValues({ ...values, [event.target.name]: event.target.value})
     }
   }
 
