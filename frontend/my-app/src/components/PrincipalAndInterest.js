@@ -15,7 +15,8 @@ const PrincipalAndInterest = (props) => {
       downPaymentPerc: props.values.monthly_mortgage.down_payment_perc * 100,
       loanType: props.values.mortgage_rate.loan_type,
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
-      monthlyPayment: ''
+      monthlyPayment: '',
+      percActive: false
     })
 
   useEffect(() => {
@@ -23,10 +24,12 @@ const PrincipalAndInterest = (props) => {
   }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
 
   useEffect(() => {
+    if (values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('amount', values.downPayment, values.zestimate)
   }, [values.downPayment]);
 
   useEffect(() => {
+    if (!values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
   }, [values.downPaymentPerc]);
 
@@ -54,15 +57,20 @@ const PrincipalAndInterest = (props) => {
       setValues({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
     }
     else {
-      setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(0)})
+      setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
     }
   }
 
   const handleChange = (event, value) => {
-    if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
-      setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
-    } else {
-      setValues({ ...values, [event.target.name]: event.target.value})
+    const re = /^[\.,0-9\b]+$/;
+    console.log(event.target.value)
+    // if value is not blank, then test the regex and only accept numbers
+    if (event.target.value === '' || re.test(event.target.value)) {
+      if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
+        setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
+      } else {
+        setValues({ ...values, [event.target.name]: event.target.value})
+      }
     }
   }
 
@@ -100,6 +108,7 @@ const PrincipalAndInterest = (props) => {
                 variant='filled'
                 name='downPayment'
                 value={values.downPayment}
+                onFocus={() => setValues({...values, percActive: false})}
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -114,6 +123,7 @@ const PrincipalAndInterest = (props) => {
                 variant='filled'
                 name='downPaymentPerc'
                 value={values.downPaymentPerc}
+                onFocus={() => setValues({...values, percActive: true})}
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
