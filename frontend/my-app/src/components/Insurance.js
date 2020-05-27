@@ -8,7 +8,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 
-const PrincipalAndInterest = (props) => {
+const Insurance = (props) => {
   const [values, setValues] = useState({
       zestimate: props.values.zestimates.zestimate.toLocaleString('en-US'),
       downPayment: props.values.monthly_mortgage.down_payment.toLocaleString('en-US'),
@@ -165,4 +165,4 @@ const PrincipalAndInterest = (props) => {
   )
 }
 
-export default PrincipalAndInterest
+export default Insurance

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import PrincipalAndInterest from './PrincipalAndInterest'
+// import Insurance from './Insurance'
 
 const Results = (props) => {
   return (
