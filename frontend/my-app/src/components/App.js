@@ -5,12 +5,12 @@ import SearchPage from './SearchPage'
 import Results from './Results'
 import { Transition, } from "react-spring/renderprops";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import { teal, green } from "@material-ui/core/colors";
+import { teal, white } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
     primary: teal,
-    secondary: green
+    secondary: white
   },
   overrides: {
     MuiInputLabel: {

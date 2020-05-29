@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import PrincipalAndInterest from './PrincipalAndInterest'
-// import Insurance from './Insurance'
+import Insurance from './Insurance'
 
 const Results = (props) => {
   return (
@@ -9,6 +9,9 @@ const Results = (props) => {
       <h1><span className='roof'>Logo</span>\Here</h1>
       <div className='accordion-area'>
         <PrincipalAndInterest
+          values = {props.results}
+        />
+        <Insurance
           values = {props.results}
         />
       </div>
