@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import FormControl from '@material-ui/core/FormControl';
+import FormControl from '@material-ui/core/FormControl'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
@@ -7,7 +7,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import Checkbox from '@material-ui/core/Checkbox'
+import InfoIcon from '@material-ui/icons/Info'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const Insurance = (props) => {
   const [values, setValues] = useState({
@@ -46,11 +48,6 @@ const Insurance = (props) => {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
-        <div className='two-column'>
-        <Checkbox
-          label='You usually pay Mortgage Insurance if your down payment is less than 20%'
-          color='primary'
-        />
         <TextField
             label='Mortgage Insurance'
             variant='filled'
@@ -62,12 +59,26 @@ const Insurance = (props) => {
                     <p style={{marginBottom: '0px'}}>$</p>
                   </InputAdornment>
                 ),
+                endAdornment: (
+                  <InputAdornment position="start">
+                  <Tooltip
+                    title="Mortgage Insurnace is usually required under 20% down payment"
+                    enterTouchDelay={100}
+                    >
+                    <InfoIcon />
+                  </Tooltip>
+                  </InputAdornment>
+                ),
               }}
-            labelPlacement='end'
-            inputProps={{ style: {textAlign: 'right'} }}
             onChange={(event, value)=> handleChange(event, value)}
           />
-          </div>
+          <TextField
+              label='Mortgage Insurance'
+              variant='filled'
+              name='zestimate'
+              value={values.pmi}
+              onChange={(event, value)=> handleChange(event, value)}
+            />
         </FormControl>
       </ExpansionPanelDetails>
     </ExpansionPanel>
