@@ -62,6 +62,7 @@ const PrincipalAndInterest = (props) => {
   }, [values.downPayment]);
 
   useEffect(() => {
+    props.downPaymentPercChange(values.downPaymentPerc)
     if (!values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
     // eslint-disable-next-line react-hooks/exhaustive-deps

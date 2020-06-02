@@ -10,21 +10,20 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import InfoIcon from '@material-ui/icons/Info'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
+import { Checkbox } from '@material-ui/core'
 
 const Insurance = (props) => {
   const [values, setValues] = useState({
-      pmi: props.values.pmi.yearly.toLocaleString('en-US'),
+      pmiChecked: (parseInt(props.downPaymentPerc) < 20 ? true : false),
+      pmi: (parseInt(props.downPaymentPerc) < 20 ? props.values.pmi.yearly.toLocaleString('en-US') : 0),
+      dp: parseInt(props.downPaymentPerc)
     })
 
     const handleChange = (event, value) => {
       const re = /^[.,0-9\b]+$/;
       // if value is not blank, then test the regex and only accept numbers
       if (event.target.value === '' || re.test(event.target.value)) {
-        if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
-          setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
-        } else {
-          setValues({ ...values, [event.target.name]: event.target.value})
-        }
+        setValues({ ...values, [event.target.name]: event.target.value})
       }
     }
 
@@ -48,30 +47,35 @@ const Insurance = (props) => {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
-        <TextField
-            label='Mortgage Insurance'
-            variant='filled'
-            name='zestimate'
-            value={values.pmi}
-            InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <p style={{marginBottom: '0px'}}>$</p>
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="start">
-                  <Tooltip
-                    title="Mortgage Insurnace is usually required under 20% down payment"
-                    enterTouchDelay={100}
-                    >
-                    <InfoIcon />
-                  </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            onChange={(event, value)=> handleChange(event, value)}
+        <div className='two-column'>
+          <Checkbox
+            color='primary'
+            checked={parseInt(props.downPaymentPerc) < 20 ? true : false}
           />
+          <TextField
+              label='Mortgage Insurance'
+              name='zestimate'
+              value={parseInt(props.downPaymentPerc) < 20 ? props.values.pmi.yearly.toLocaleString('en-US') : 0}
+              InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <p style={{marginBottom: '0px'}}>$</p>
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="start">
+                    <Tooltip
+                      title="Mortgage Insurnace is usually required under 20% down payment"
+                      enterTouchDelay={100}
+                      >
+                      <InfoIcon />
+                    </Tooltip>
+                    </InputAdornment>
+                  ),
+                }}
+              onChange={(event, value)=> handleChange(event, value)}
+            />
+          </div>
           <TextField
               label='Mortgage Insurance'
               variant='filled'
