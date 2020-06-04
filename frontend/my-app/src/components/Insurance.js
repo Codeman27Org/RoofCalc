@@ -16,8 +16,14 @@ const Insurance = (props) => {
   const [values, setValues] = useState({
       pmiChecked: (parseInt(props.downPaymentPerc) < 20 ? true : false),
       pmi: (parseInt(props.downPaymentPerc) < 20 ? props.values.pmi.yearly.toLocaleString('en-US') : 0),
+      fiChecked: false,
       dp: parseInt(props.downPaymentPerc)
     })
+
+  const monthlyPaymentCalc = () => {
+
+    // setValues({...values, monthlyPayment: formatter.format(monthlyPayment)})
+  }
 
     const handleChange = (event, value) => {
       const re = /^[.,0-9\b]+$/;
@@ -54,7 +60,8 @@ const Insurance = (props) => {
           />
           <TextField
               label='Mortgage Insurance'
-              name='zestimate'
+              name='pmi'
+              variant='filled'
               value={parseInt(props.downPaymentPerc) < 20 ? props.values.pmi.yearly.toLocaleString('en-US') : 0}
               InputProps={{
                   startAdornment: (
@@ -64,8 +71,9 @@ const Insurance = (props) => {
                   ),
                   endAdornment: (
                     <InputAdornment position="start">
+                    <p style={{marginBottom: '0px', marginRight: '15px'}}>/Year</p>
                     <Tooltip
-                      title="Mortgage Insurnace is usually required under 20% down payment"
+                      title="Mortgage insurance is usually required under 20% down payment"
                       enterTouchDelay={100}
                       >
                       <InfoIcon />
@@ -76,13 +84,36 @@ const Insurance = (props) => {
               onChange={(event, value)=> handleChange(event, value)}
             />
           </div>
-          <TextField
-              label='Mortgage Insurance'
-              variant='filled'
-              name='zestimate'
-              value={values.pmi}
-              onChange={(event, value)=> handleChange(event, value)}
+          <div className='two-column'>
+            <Checkbox
+              color='primary'
+              onChange={(event) => {setValues({ ...values, fiChecked: !values.fiChecked})}}
             />
+            <TextField
+                label='Flood Insurance'
+                name='flood'
+                variant='filled'
+                value={parseInt(props.downPaymentPerc) < 20 ? props.values.pmi.yearly.toLocaleString('en-US') : 0}
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>$</p>
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="start">
+                      <Tooltip
+                        title="Flood insurance is required if the house is located in a frequent flood plain"
+                        enterTouchDelay={0}
+                        >
+                        <InfoIcon />
+                      </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+              />
+            </div>
         </FormControl>
       </ExpansionPanelDetails>
     </ExpansionPanel>
