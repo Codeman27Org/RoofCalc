@@ -1,12 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import FormControl from '@material-ui/core/FormControl';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import TextField from '@material-ui/core/TextField'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl} from '@material-ui/core'
 
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = useState({
@@ -18,7 +12,6 @@ const PrincipalAndInterest = (props) => {
       monthlyPayment: '',
       percActive: false
     })
-
 
     const monthlyPaymentCalc = (housePrice, downPayment, loanType, rate) => {
       let loan = housePrice.toString().replace(/,/g, '') - downPayment.toString().replace(/,/g, '')
