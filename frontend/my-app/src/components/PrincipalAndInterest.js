@@ -38,13 +38,13 @@ const PrincipalAndInterest = (props) => {
         if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
         } else {
-          console.log(event.target.value)
           setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
         }
       }
     }
 
   useEffect(() => {
+    props.housePriceChange(values.zestimate)
     monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);

@@ -2,14 +2,21 @@ import React, {useState} from 'react'
 import { Button } from '@material-ui/core'
 import PrincipalAndInterest from './PrincipalAndInterest'
 import Insurance from './Insurance'
+import FloodInsurance from './FloodInsurance'
+import PropertyTaxes from './PropertyTaxes'
 
 const Results = (props) => {
   const [values, setValues] = useState({
       downPaymentPerc: props.results.monthly_mortgage.down_payment_perc * 100,
+      housePrice: props.results.zestimates.zestimate
     })
 
   const downPaymentPercChange = (value) => {
     setValues({...values, downPaymentPerc: value})
+  }
+
+  const housePriceChange = (value) => {
+    setValues({...values, housePrice: value})
   }
 
   return (
@@ -20,10 +27,21 @@ const Results = (props) => {
           values = {props.results}
           downPaymentPerc = {values.downPaymentPerc}
           downPaymentPercChange = {downPaymentPercChange}
+          housePrice = {values.housePrice}
+          housePriceChange = {housePriceChange}
         />
         <Insurance
           values = {props.results}
           downPaymentPerc = {values.downPaymentPerc}
+        />
+        <FloodInsurance
+          values = {props.results}
+          downPaymentPerc = {values.downPaymentPerc}
+        />
+        <PropertyTaxes
+          values = {props.results}
+          downPaymentPerc = {values.downPaymentPerc}
+          housePrice = {values.housePrice}
         />
       </div>
       <div className='button-box'>
