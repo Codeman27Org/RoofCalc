@@ -5,17 +5,18 @@ import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDet
 const PropertyTaxes = (props) => {
   const [values, setValues] = useState({
       taxAmount: props.values.taxes.tax_amt_yr.toLocaleString('en-US'),
-      taxRate: (props.values.taxes.tax_rate * 100).toString().slice(0,5),
+      taxRate: (props.values.taxes.tax_rate * 100).toString().slice(0,4),
       monthlyPayment: '',
       percActive: false
     })
 
     const downPaymentCalc = (type, value, housePrice) => {
       if (type === 'percent') {
-        setValues({...values, taxAmount: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
+        setValues({...values, taxAmount: Math.round((value/100) * parseInt(housePrice.toString().replace(/,/g, '')))}) //divide by 100 to get it as a percent again
       }
       else {
-        setValues({...values, taxRate: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
+        console.log(value)
+        //setValues({...values, taxRate: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
       }
     }
 
@@ -38,13 +39,13 @@ const PropertyTaxes = (props) => {
 
   useEffect(() => {
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('amount', values.downPayment, values.zestimate)
+    downPaymentCalc('amount', values.taxPercent, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.taxAmount]);
+  }, [values.taxAmount, props.housePrice]);
 
   useEffect(() => {
     if (!values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('percent', values.taxRate, values.zestimate)
+    downPaymentCalc('percent', values.taxRate, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.taxRate]);
 
@@ -67,17 +68,17 @@ const PropertyTaxes = (props) => {
       id='panel1a-header'
       className='accordion-summary'
       >
-        <Typography>Principal & Interest</Typography>
+        <Typography>Property Taxes</Typography>
         <Typography className='accordion-total'>{values.monthlyPayment}/Mo</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
           <div className='two-column'>
             <TextField
-                label='Down Payment'
+                label='Tax Amount'
                 variant='filled'
                 name='taxAmount'
-                value={values.downPayment}
+                value={values.taxAmount}
                 fullWidth={true}
                 onFocus={() => setValues({...values, percActive: false})}
                 InputProps={{
@@ -90,10 +91,10 @@ const PropertyTaxes = (props) => {
                 onChange={(event, value)=> handleChange(event, value)}
             />
             <TextField
-                label=' '
+                label='Tax Rate'
                 variant='filled'
-                name='taxPercent'
-                value={values.downPaymentPerc}
+                name='taxRate'
+                value={values.taxRate}
                 fullWidth={true}
                 onFocus={() => setValues({...values, percActive: true})}
                 InputProps={{
