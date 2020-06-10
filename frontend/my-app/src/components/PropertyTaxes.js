@@ -10,14 +10,14 @@ const PropertyTaxes = (props) => {
       percActive: false
     })
 
-    const downPaymentCalc = (type, value, housePrice) => {
+    const taxAmountCalc = (type, value, housePrice) => {
       if (type === 'percent') {
         setValues({...values, taxAmount: Math.round((value/100) * parseInt(housePrice.toString().replace(/,/g, '')))}) //divide by 100 to get it as a percent again
       }
       else {
-        console.log(value)
-        //setValues({...values, taxRate: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
+        setValues({...values, taxRate: ((parseInt(value.toString().replace(/,/g, ''))/parseInt(housePrice.toString().replace(/,/g, ''))) * 100).toFixed(2)})
       }
+      setValues({ ...values, monthlyPayment: formatter.format(Math.round(values.taxAmount.replace(/,/g, '')/12))})
     }
 
     const handleChange = (event) => {
@@ -32,27 +32,18 @@ const PropertyTaxes = (props) => {
       }
     }
 
-  // useEffect(() => {
-  //   monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
-
   useEffect(() => {
+    console.log(values.percActive)
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('amount', values.taxPercent, props.housePrice)
+    taxAmountCalc('amount', values.taxAmount, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.taxAmount, props.housePrice]);
+  }, [values.taxAmount]);
 
   useEffect(() => {
     if (!values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('percent', values.taxRate, props.housePrice)
+    taxAmountCalc('percent', values.taxRate, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.taxRate]);
-
-  // useEffect(() => {
-  //  monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
-  //  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

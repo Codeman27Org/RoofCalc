@@ -40,7 +40,6 @@ const Results = (props) => {
         />
         <PropertyTaxes
           values = {props.results}
-          downPaymentPerc = {values.downPaymentPerc}
           housePrice = {values.housePrice}
         />
       </div>
