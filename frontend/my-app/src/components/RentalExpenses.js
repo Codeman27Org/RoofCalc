@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl} from '@material-ui/core'
 
-const PropertyTaxes = (props) => {
+const RentalExpenses = (props) => {
   const [values, setValues] = useState({
       taxAmount: props.values.taxes.tax_amt_yr.toLocaleString('en-US'),
       taxRate: (props.values.taxes.tax_rate * 100).toString().slice(0,4),
@@ -26,7 +26,7 @@ const PropertyTaxes = (props) => {
         if (event.target.name === 'taxAmount') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
         } else {
-          setValues({ ...values, [event.target.name]: (event.target.value === '' || event.target.value === '.') ? 0.0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
         }
       }
     }
@@ -113,4 +113,4 @@ const PropertyTaxes = (props) => {
   )
 }
 
-export default PropertyTaxes
+export default RentalExpenses
