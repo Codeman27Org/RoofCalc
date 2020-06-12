@@ -51,4 +51,5 @@
 .two-column {
   display: flex;
   flex-direction: row;
+  flex: 2;
 }

@@ -5,7 +5,13 @@ import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDet
 const PrincipalAndInterest = (props) => {
   const [values, setValues] = useState({
       rentZestimate: props.values.zestimates.rent_zestimate.toLocaleString('en-US'),
-      monthlyPayment: props.values.zestimates.rent_zestimate.toLocaleString('en-US')
+      monthlyPayment: props.values.zestimates.rent_zestimate.toLocaleString('en-US'),
+      vacancyAmount: (props.values.zestimates.rent_zestimate * 0.1).toLocaleString('en-US'),
+      vacancyRate: 10,
+      repairsAmount: (props.values.zestimates.rent_zestimate * 0.1).toLocaleString('en-US'),
+      repairsRate: 10,
+      propertyManagementAmount: (props.values.zestimates.rent_zestimate * 0.1).toLocaleString('en-US'),
+      propertyManagementRate: 10,
     })
 
 
@@ -18,28 +24,10 @@ const PrincipalAndInterest = (props) => {
     }
 
   useEffect(() => {
-    props.housePriceChange(values.zestimate)
-    monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
+    setValues({ ...values, monthlyPayment: formatter.format(values.rentZestimate.toString().replace(/,/g, '')).replace('$', '')})
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
+  }, [values.rentZestimate]);
 
-  useEffect(() => {
-    if (values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('amount', values.downPayment, values.zestimate)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.downPayment]);
-
-  useEffect(() => {
-    props.downPaymentPercChange(values.downPaymentPerc)
-    if (!values.percActive) return //Don't want current textfield changing while the user is changing it
-    downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.downPaymentPerc]);
-
-  useEffect(() => {
-   monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -50,21 +38,21 @@ const PrincipalAndInterest = (props) => {
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary
-      expandIcon={<ExpandMoreIcon className='expand-icon'/>}
-      aria-controls='panel1a-content'
-      id='panel1a-header'
-      className='accordion-summary'
+        expandIcon={<ExpandMoreIcon className='expand-icon'/>}
+        aria-controls='panel1a-content'
+        id='panel1a-header'
+        className='accordion-summary'
       >
-        <Typography>Principal & Interest</Typography>
+        <Typography>Rental Income</Typography>
         <Typography className='accordion-total'>{values.monthlyPayment}/Mo</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
         <TextField
-            label='Home Price'
+            label='Rental Income'
             variant='filled'
-            name='zestimate'
-            value={values.zestimate}
+            name='rentZestimate'
+            value={values.rentZestimate}
             InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -74,6 +62,106 @@ const PrincipalAndInterest = (props) => {
               }}
             onChange={(event, value)=> handleChange(event, value)}
           />
+          <div className='two-column'>
+            <TextField
+                label='Vacancy'
+                variant='filled'
+                name='vacancyAmount'
+                value={values.vacancyAmount}
+                fullWidth={true}
+                onFocus={() => setValues({...values, percActive: false})}
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>$</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+            />
+            <TextField
+                label=' '
+                variant='filled'
+                name='vacancyRate'
+                value={values.vacancyRate}
+                fullWidth={true}
+                onFocus={() => setValues({...values, percActive: true})}
+                InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>%</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+            />
+          </div>
+          <div className='two-column'>
+            <TextField
+                label='Repairs'
+                variant='filled'
+                name='repairsAmount'
+                value={values.repairsAmount}
+                fullWidth={true}
+                onFocus={() => setValues({...values, percActive: false})}
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>$</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+            />
+              <TextField
+                  label=' '
+                  variant='filled'
+                  name='repairsRate'
+                  value={values.repairsRate}
+                  fullWidth={true}
+                  InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="start">
+                          <p style={{marginBottom: '0px'}}>%</p>
+                        </InputAdornment>
+                      ),
+                    }}
+                  onChange={(event, value)=> handleChange(event, value)}
+            />
+          </div>
+          <div className='two-column'>
+            <TextField
+                label='Property Management'
+                variant='filled'
+                name='propertyManagementAmount'
+                value={values.propertyManagementAmount}
+                fullWidth={true}
+                onFocus={() => setValues({...values, percActive: false})}
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p style={{marginBottom: '0px'}}>$</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+            />
+              <TextField
+                  label=' '
+                  variant='filled'
+                  name='propertyManagementRate'
+                  value={values.propertyManagementRate}
+                  fullWidth={true}
+                  InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="start">
+                          <p style={{marginBottom: '0px'}}>%</p>
+                        </InputAdornment>
+                      ),
+                    }}
+                  onChange={(event, value)=> handleChange(event, value)}
+            />
+          </div>
         </FormControl>
       </ExpansionPanelDetails>
     </ExpansionPanel>

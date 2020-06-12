@@ -4,6 +4,7 @@ import PrincipalAndInterest from './PrincipalAndInterest'
 import Insurance from './Insurance'
 import FloodInsurance from './FloodInsurance'
 import PropertyTaxes from './PropertyTaxes'
+import RentalIncome from './RentalIncome'
 
 const Results = (props) => {
   const [values, setValues] = useState({
@@ -23,6 +24,9 @@ const Results = (props) => {
     <div className='results'>
       <h1><span className='roof'>Logo</span>\Here</h1>
       <div className='accordion-area'>
+        <RentalIncome
+          values = {props.results}
+        />
         <PrincipalAndInterest
           values = {props.results}
           downPaymentPerc = {values.downPaymentPerc}
