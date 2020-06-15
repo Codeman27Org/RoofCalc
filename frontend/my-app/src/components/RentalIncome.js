@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl} from '@material-ui/core'
 
-const PrincipalAndInterest = (props) => {
+const RentalIncome = (props) => {
   const [values, setValues] = useState({
-      rentZestimate: props.values.zestimates.rent_zestimate.toLocaleString('en-US'),
+      rentAmount: props.values.zestimates.rent_zestimate.toLocaleString('en-US'),
       monthlyPayment: props.values.zestimates.rent_zestimate.toLocaleString('en-US'),
       vacancyAmount: (props.values.zestimates.rent_zestimate * 0.1).toLocaleString('en-US'),
       vacancyRate: 10,
@@ -12,21 +12,37 @@ const PrincipalAndInterest = (props) => {
       repairsRate: 10,
       propertyManagementAmount: (props.values.zestimates.rent_zestimate * 0.1).toLocaleString('en-US'),
       propertyManagementRate: 10,
+      percActive: false
     })
 
-
     const handleChange = (event) => {
-      const re = /^[.,0-9\b]+$/;
-      // if value is not blank, then test the regex and only accept numbers
-      if (event.target.value === '' || re.test(event.target.value)) {
-        setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
-      }
+      // const re = /^[.,0-9\b]+$/;
+      // // if value is not blank, then test the regex and only accept numbers
+      // if (event.target.value === '' || re.test(event.target.value)) {
+        if (event.target.name.includes('Amount')) {
+          setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
+        } else {
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
+        }
+      // }
     }
 
   useEffect(() => {
-    setValues({ ...values, monthlyPayment: formatter.format(values.rentZestimate.toString().replace(/,/g, '')).replace('$', '')})
+    if (values.percActive) return //Don't want current textfield changing while the user is changing it
+    setValues({ ...values, vacancyRate: (values.vacancyAmount.toString().replace(/,/g, '')/values.rentAmount.toString().replace(/,/g, '')) * 100})
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.rentZestimate]);
+  }, [values.vacancyAmount, values.rentAmount]);
+
+  useEffect(() => {
+    if (!values.percActive) return //Don't want current textfield changing while the user is changing it
+    // downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.vacancyRate]);
+
+  useEffect(() => {
+    setValues({ ...values, monthlyPayment: formatter.format(values.rentAmount.toString().replace(/,/g, '')).replace('$', '')})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.rentAmount]);
 
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -51,8 +67,8 @@ const PrincipalAndInterest = (props) => {
         <TextField
             label='Rental Income'
             variant='filled'
-            name='rentZestimate'
-            value={values.rentZestimate}
+            name='rentAmount'
+            value={values.rentAmount}
             InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -65,6 +81,7 @@ const PrincipalAndInterest = (props) => {
           <div className='two-column'>
             <TextField
                 label='Vacancy'
+                className='amount-column'
                 variant='filled'
                 name='vacancyAmount'
                 value={values.vacancyAmount}
@@ -99,6 +116,7 @@ const PrincipalAndInterest = (props) => {
           <div className='two-column'>
             <TextField
                 label='Repairs'
+                className='amount-column'
                 variant='filled'
                 name='repairsAmount'
                 value={values.repairsAmount}
@@ -132,6 +150,7 @@ const PrincipalAndInterest = (props) => {
           <div className='two-column'>
             <TextField
                 label='Property Management'
+                className='amount-column'
                 variant='filled'
                 name='propertyManagementAmount'
                 value={values.propertyManagementAmount}
@@ -168,4 +187,4 @@ const PrincipalAndInterest = (props) => {
   )
 }
 
-export default PrincipalAndInterest
+export default RentalIncome
