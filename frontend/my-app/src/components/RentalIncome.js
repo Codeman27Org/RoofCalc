@@ -27,23 +27,29 @@ const RentalIncome = (props) => {
       // }
     }
 
+    // const monthlyPaymentCalc = (rentAmountNew) => {
+    //   // let rentAmountInt =
+    //
+    //   setValues({...values, monthlyPayment: formatter.format(monthlyPayment)})
+    // }
+
   useEffect(() => {
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
-    setValues({ ...values, vacancyRate: (values.vacancyAmount.toString().replace(/,/g, '')/values.rentAmount.toString().replace(/,/g, '')) * 100})
+    let rentAmountInt = parseInt(values.rentAmount.toString().replace(/,/g, ''))
+    let vacancyAmountInt = parseInt(values.vacancyAmount.toString().replace(/,/g, ''))
+    let vacancyRateNew = vacancyAmountInt/rentAmountInt * 100
+    let monthlyPaymentNew = formatter.format(values.rentAmount.toString().replace(/,/g, '')).replace('$', '')
+
+    setValues({ ...values, vacancyRate: vacancyRateNew})
+    setValues({ ...values, monthlyPayment: monthlyPaymentNew})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.vacancyAmount, values.rentAmount]);
-
-  useEffect(() => {
-    if (!values.percActive) return //Don't want current textfield changing while the user is changing it
-    // downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.vacancyRate]);
-
-  useEffect(() => {
-    setValues({ ...values, monthlyPayment: formatter.format(values.rentAmount.toString().replace(/,/g, '')).replace('$', '')})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.rentAmount]);
-
+  //
+  // useEffect(() => {
+  //   if (!values.percActive) return //Don't want current textfield changing while the user is changing it
+  //   // downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [values.vacancyRate]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
