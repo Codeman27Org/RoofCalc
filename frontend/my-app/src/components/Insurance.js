@@ -64,6 +64,17 @@ const Insurance = (props) => {
                       <p style={{marginBottom: '0px'}}>$</p>
                     </InputAdornment>
                   ),
+                  endAdornment: (
+                    <InputAdornment position="start">
+                    <p style={{marginBottom: '0px', marginRight: '15px'}}>/Year</p>
+                    <Tooltip
+                      title="Mortgage insurance is usually required under 20% down payment"
+                      enterTouchDelay={100}
+                      >
+                      <InfoIcon />
+                    </Tooltip>
+                    </InputAdornment>
+                  ),
                 }}
               onChange={(event, value)=> handleChange(event, value)}
             />
