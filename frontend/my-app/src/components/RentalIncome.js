@@ -43,17 +43,17 @@ const RentalIncome = (props) => {
   }, [values.vacancyAmount, values.rentAmount, values.repairsAmount, values.propertyManagementAmount])
 
   useEffect(() => {
-    setValues({ ...values, vacancyAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.vacancyRate/100).replace('$', '')})
+    setValues((values) => ({ ...values, vacancyAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.vacancyRate/100).replace('$', '')}))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.vacancyRate, values.rentAmount])
 
   useEffect(() => {
-    setValues({ ...values, repairsAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.repairsRate/100).replace('$', '')})
+    setValues((values) => ({ ...values, repairsAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.repairsRate/100).replace('$', '')}))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.repairsRate, values.rentAmount])
 
   useEffect(() => {
-    setValues({ ...values, propertyManagementAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.propertyManagementRate/100).replace('$', '')})
+    setValues((values) => ({ ...values, propertyManagementAmount: formatter.format(values.rentAmount.toString().replace(/,/g, '') * values.propertyManagementRate/100).replace('$', '')}))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.propertyManagementRate, values.rentAmount])
 
