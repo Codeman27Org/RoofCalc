@@ -16,6 +16,7 @@ const RentalIncome = (props) => {
 
     const handleChange = (event) => {
       const re = /^[.,0-9\b]+$/;
+      console.log(event.target.name)
       // // if value is not blank, then test the regex and only accept numbers
       if (event.target.value === '' || re.test(event.target.value)) {
         if (event.target.name.includes('Amount')) {
