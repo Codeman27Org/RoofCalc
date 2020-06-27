@@ -94,7 +94,7 @@ const PrincipalAndInterest = (props) => {
             InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <p style={{marginBottom: '0px'}}>$</p>
+                    <p>$</p>
                   </InputAdornment>
                 ),
               }}
@@ -111,7 +111,7 @@ const PrincipalAndInterest = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                   }}
@@ -127,7 +127,7 @@ const PrincipalAndInterest = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>%</p>
+                        <p>%</p>
                       </InputAdornment>
                     ),
                   }}
@@ -152,7 +152,7 @@ const PrincipalAndInterest = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>%</p>
+                        <p>%</p>
                       </InputAdornment>
                     ),
                   }}

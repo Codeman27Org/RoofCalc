@@ -89,7 +89,7 @@ const RentalIncome = (props) => {
             InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <p style={{marginBottom: '0px'}}>$</p>
+                    <p>$</p>
                   </InputAdornment>
                 ),
               }}
@@ -107,7 +107,7 @@ const RentalIncome = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                   }}
@@ -122,7 +122,7 @@ const RentalIncome = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>%</p>
+                        <p>%</p>
                       </InputAdornment>
                     ),
                   }}
@@ -141,7 +141,7 @@ const RentalIncome = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                   }}
@@ -156,7 +156,7 @@ const RentalIncome = (props) => {
                   InputProps={{
                       endAdornment: (
                         <InputAdornment position="start">
-                          <p style={{marginBottom: '0px'}}>%</p>
+                          <p>%</p>
                         </InputAdornment>
                       ),
                     }}
@@ -175,7 +175,7 @@ const RentalIncome = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                   }}
@@ -190,7 +190,7 @@ const RentalIncome = (props) => {
                   InputProps={{
                       endAdornment: (
                         <InputAdornment position="start">
-                          <p style={{marginBottom: '0px'}}>%</p>
+                          <p>%</p>
                         </InputAdornment>
                       ),
                     }}

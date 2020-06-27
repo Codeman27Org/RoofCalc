@@ -61,7 +61,7 @@ const Insurance = (props) => {
               InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <p style={{marginBottom: '0px'}}>$</p>
+                      <p>$</p>
                     </InputAdornment>
                   ),
                   endAdornment: (
@@ -87,7 +87,7 @@ const Insurance = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                     endAdornment: (

@@ -84,7 +84,7 @@ const PropertyTaxes = (props) => {
                 InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>$</p>
+                        <p>$</p>
                       </InputAdornment>
                     ),
                   }}
@@ -100,7 +100,7 @@ const PropertyTaxes = (props) => {
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="start">
-                        <p style={{marginBottom: '0px'}}>%</p>
+                        <p>%</p>
                       </InputAdornment>
                     ),
                   }}
