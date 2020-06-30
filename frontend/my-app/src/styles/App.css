@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
   /* will-change: transform, opacity; */
 }
 
@@ -29,6 +30,25 @@
 
 .accordion-total {
   margin-left: auto !important;
+}
+
+.income {
+  color: green;
+}
+
+.metrics {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10%;
+}
+
+.metric-label {
+  font-size: 0.8em;
+}
+
+.expenses {
+  color: red;
 }
 
 .expand-icon {

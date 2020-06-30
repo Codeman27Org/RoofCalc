@@ -82,7 +82,7 @@ const PrincipalAndInterest = (props) => {
       className='accordion-summary'
       >
         <Typography>Principal & Interest</Typography>
-        <Typography className='accordion-total'>{values.monthlyPayment}/Mo</Typography>
+        <Typography className='accordion-total expenses'>{values.monthlyPayment}/Mo</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
