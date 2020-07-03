@@ -19,6 +19,10 @@ const Insurance = (props) => {
   }, [props])
 
   useEffect(() => {
+    props.changeValue(parseInt(values.monthlyPayment.toString().replace('$', '')), 'insurance')
+  }, [values.monthlyPayment])
+
+  useEffect(() => {
     let pmi = values.pmiChecked ? parseInt(values.pmi.replace(/,/g, '')) : 0
     let pi = parseInt(values.pi.replace(/,/g, ''))
 

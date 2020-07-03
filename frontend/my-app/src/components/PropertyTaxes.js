@@ -32,12 +32,15 @@ const PropertyTaxes = (props) => {
     }
 
   useEffect(() => {
+    props.changeValue(parseInt(values.monthlyPayment.replace('$', '')))
+  }, [values.monthlyPayment])
+
+  useEffect(() => {
     setValues({ ...values, monthlyPayment: formatter.format(Math.round(values.taxAmount.replace(/,/g, '')/12))})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.taxAmount, values.taxRate])
 
   useEffect(() => {
-    console.log(values.percActive)
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
     taxAmountCalc('amount', values.taxAmount, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps

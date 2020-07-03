@@ -44,23 +44,27 @@ const PrincipalAndInterest = (props) => {
     }
 
   useEffect(() => {
-    props.housePriceChange(values.zestimate)
+    props.changeValue(parseInt(values.zestimate.replace(',', '')), 'housePrice')
     monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate]);
+  }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate])
 
   useEffect(() => {
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('amount', values.downPayment, values.zestimate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.downPayment]);
+  }, [values.downPayment])
+
+  useEffect(() => {
+    props.changeValue(parseInt(values.monthlyPayment.replace('$', '')), 'principalAndInterest')
+  }, [values.monthlyPayment])
 
   useEffect(() => {
     props.downPaymentPercChange(values.downPaymentPerc)
     if (!values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.downPaymentPerc]);
+  }, [values.downPaymentPerc])
 
   useEffect(() => {
    monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)

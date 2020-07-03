@@ -11,6 +11,10 @@ const FloodInsurance = (props) => {
     })
 
   useEffect(() => {
+    props.changeValue(parseInt(values.monthlyPayment.toString().replace('$', '')), 'floodInsurance')
+  }, [values.monthlyPayment])
+
+  useEffect(() => {
     let fi = values.fiChecked ? parseInt(values.fi.replace(/,/g, '')) : 0
 
     setValues({ ...values, monthlyPayment: formatter.format((fi/12).toFixed(0))});

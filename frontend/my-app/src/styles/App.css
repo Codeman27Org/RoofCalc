@@ -45,6 +45,14 @@
 
 .metric-label {
   font-size: 0.8em;
+  text-align: center;
+  /* margin-bottom: 0; */
+}
+
+.metric-value {
+  font-size: 1.3em;
+  text-align: center;
+  margin-top: 0;
 }
 
 .expenses {
