@@ -33,6 +33,7 @@ const PropertyTaxes = (props) => {
 
   useEffect(() => {
     props.changeValue(parseInt(values.monthlyPayment.replace('$', '')))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 
   useEffect(() => {

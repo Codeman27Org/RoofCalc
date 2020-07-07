@@ -57,6 +57,7 @@ const PrincipalAndInterest = (props) => {
 
   useEffect(() => {
     props.changeValue(parseInt(values.monthlyPayment.replace('$', '')), 'principalAndInterest')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 
   useEffect(() => {

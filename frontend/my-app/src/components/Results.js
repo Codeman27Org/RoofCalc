@@ -11,7 +11,8 @@ const Results = (props) => {
   const [values, setValues] = useState({
       downPaymentPerc: 0,
       housePrice: 0,
-      rentalIncome: 0,
+      netRentalIncome: 0,
+      grossRentalIncome: 0,
       principalAndInterest: 0,
       insurance: 0,
       floodInsurance: 0,
@@ -28,17 +29,18 @@ const Results = (props) => {
   }
 
   useEffect(() => {
-    setValues((values) => ({...values, rentRatio: (values.rentalIncome/values.housePrice)}))
-  }, [values.rentalIncome, values.housePrice])
+    setValues((values) => ({...values, rentRatio: (100.0 * values.grossRentalIncome/values.housePrice).toFixed(2)}))
+  }, [values.netRentalIncome, values.housePrice])
 
   return (
     <div className='results'>
       <h1><span className='roof'>Logo</span>\Here</h1>
-      <Metrics />
+      <Metrics
+          values = {values}
+      />
       <div className='accordion-area'>
         <RentalIncome
           values = {props.results}
-          rentalIncome ={values.rentalIncome}
           changeValue = {changeValue}
         />
         <PrincipalAndInterest

@@ -13,7 +13,7 @@ const Metrics = (props) => {
       </div>
       <div className = 'rent-ratio'>
         <p className='metric-label'>Rent Ratio</p>
-        <p className='metric-value'>1%</p>
+        <p className='metric-value'>{isFinite(props.values.rentRatio) ? props.values.rentRatio : 0}%</p>
       </div>
     </div>
   )

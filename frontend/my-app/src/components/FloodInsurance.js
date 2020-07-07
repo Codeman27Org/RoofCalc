@@ -12,6 +12,7 @@ const FloodInsurance = (props) => {
 
   useEffect(() => {
     props.changeValue(parseInt(values.monthlyPayment.toString().replace('$', '')), 'floodInsurance')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 
   useEffect(() => {

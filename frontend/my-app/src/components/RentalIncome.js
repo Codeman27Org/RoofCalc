@@ -34,7 +34,8 @@ const RentalIncome = (props) => {
     let monthlyPaymentAmount = rentAmountInt - (vacancyAmountInt + repairAmountInt + propertyManagementAmountInt)
 
     setValues({...values, monthlyPayment: formatter.format(monthlyPaymentAmount)})
-    props.changeValue(monthlyPaymentAmount, 'rentalIncome')
+    props.changeValue(monthlyPaymentAmount, 'netRentalIncome')
+    props.changeValue(rentAmountInt, 'grossRentalIncome')
   }
 
   useEffect(() => {
