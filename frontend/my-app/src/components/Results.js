@@ -6,6 +6,7 @@ import FloodInsurance from './FloodInsurance'
 import PropertyTaxes from './PropertyTaxes'
 import RentalIncome from './RentalIncome'
 import Metrics from './Metrics'
+import RehabCosts from './RehabCosts'
 
 const Results = (props) => {
   const [values, setValues] = useState({
@@ -27,6 +28,10 @@ const Results = (props) => {
   const changeValue = (value, name) => {
     setValues((values) => ({...values, [name]: value}))
   }
+
+  useEffect(() => {
+    //((netRentalIncome - principalAndInterest) * 12)/ (downPayment + loanCosts + potentialRepair)
+  })
 
   useEffect(() => {
     setValues((values) => ({...values, rentRatio: (100.0 * values.grossRentalIncome/values.housePrice).toFixed(2)}))
@@ -64,6 +69,9 @@ const Results = (props) => {
           values = {props.results}
           housePrice = {values.housePrice}
           changeValue = {changeValue}
+        />
+        <RehabCosts
+          changeValue={changeValue}
         />
       </div>
       <div className='button-box'>

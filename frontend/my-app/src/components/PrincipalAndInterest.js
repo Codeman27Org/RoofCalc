@@ -10,7 +10,9 @@ const PrincipalAndInterest = (props) => {
       loanType: '30-year',//props.values.mortgage_rate.loan_type,
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
       monthlyPayment: '',
-      percActive: false
+      percActive: false,
+      closingCosts: props.values.closing_costs.closing_costs.toLocaleString('en-US'),
+      closingCostsRate: (props.values.closing_costs.rate * 100).toString().slice(0,3)
     })
 
     const monthlyPaymentCalc = (housePrice, downPayment, loanType, rate) => {
@@ -153,6 +155,39 @@ const PrincipalAndInterest = (props) => {
                 variant='filled'
                 name='rate'
                 value={values.rate}
+                fullWidth={true}
+                InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <p>%</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+            />
+          </div>
+          <div className='two-column'>
+            <TextField
+                label='Est. Loan Costs'
+                variant='filled'
+                name='closingCosts'
+                onFocus={() => setValues({...values, percActive: false})}
+                fullWidth={true}
+                value={values.closingCosts}
+                InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <p>$</p>
+                      </InputAdornment>
+                    ),
+                  }}
+                onChange={(event, value)=> handleChange(event, value)}
+              />
+            <TextField
+                label='Cost Rate'
+                variant='filled'
+                name='closingCostsRate'
+                value={values.closingCostsRate}
                 fullWidth={true}
                 InputProps={{
                     endAdornment: (
