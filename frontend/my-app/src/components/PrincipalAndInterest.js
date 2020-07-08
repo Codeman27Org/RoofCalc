@@ -12,7 +12,6 @@ const PrincipalAndInterest = (props) => {
       monthlyPayment: '',
       percActive: false,
       closingCosts: props.values.closing_costs.closing_costs.toLocaleString('en-US'),
-      closingCostsRate: (props.values.closing_costs.rate * 100).toString().slice(0,3)
     })
 
     const monthlyPaymentCalc = (housePrice, downPayment, loanType, rate) => {
@@ -54,6 +53,7 @@ const PrincipalAndInterest = (props) => {
   useEffect(() => {
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('amount', values.downPayment, values.zestimate)
+    props.changeValue(parseInt(values.downPayment.toString().replace(/[$,]/g, '')), 'downPayment')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.downPayment])
 
@@ -68,6 +68,10 @@ const PrincipalAndInterest = (props) => {
     downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.downPaymentPerc])
+
+  useEffect(() => {
+    props.changeValue(parseInt(values.closingCosts.toString().replace(/[$,]/g, '')), 'loanCosts')
+  }, [values.closingCosts])
 
   useEffect(() => {
    monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
@@ -166,39 +170,22 @@ const PrincipalAndInterest = (props) => {
                 onChange={(event, value)=> handleChange(event, value)}
             />
           </div>
-          <div className='two-column'>
-            <TextField
-                label='Est. Loan Costs'
-                variant='filled'
-                name='closingCosts'
-                onFocus={() => setValues({...values, percActive: false})}
-                fullWidth={true}
-                value={values.closingCosts}
-                InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <p>$</p>
-                      </InputAdornment>
-                    ),
-                  }}
-                onChange={(event, value)=> handleChange(event, value)}
-              />
-            <TextField
-                label='Cost Rate'
-                variant='filled'
-                name='closingCostsRate'
-                value={values.closingCostsRate}
-                fullWidth={true}
-                InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <p>%</p>
-                      </InputAdornment>
-                    ),
-                  }}
-                onChange={(event, value)=> handleChange(event, value)}
+          <TextField
+              label='Est. Loan Costs'
+              variant='filled'
+              name='closingCosts'
+              onFocus={() => setValues({...values, percActive: false})}
+              fullWidth={true}
+              value={values.closingCosts}
+              InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <p>$</p>
+                    </InputAdornment>
+                  ),
+                }}
+              onChange={(event, value)=> handleChange(event, value)}
             />
-          </div>
         </FormControl>
       </ExpansionPanelDetails>
     </ExpansionPanel>

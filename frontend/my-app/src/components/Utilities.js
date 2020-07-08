@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl} from '@material-ui/core'
 
-const RehabCosts = (props) => {
+const Utilities = (props) => {
   const [values, setValues] = useState({
-      rehabCosts: 0,
+      waterCost: 0,
       monthlyPayment: 0
     })
 
@@ -15,10 +15,6 @@ const RehabCosts = (props) => {
         setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
       }
     }
-
-    useEffect(() => {
-      setValues((values) => ({ ...values, monthlyPayment: formatter.format(values.rehabCosts.toString().replace(/,/g, ''))}))
-    }, [values.rehabCosts])
 
     useEffect(() => {
       props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'rehabCosts')
@@ -38,16 +34,16 @@ const RehabCosts = (props) => {
       id='panel1a-header'
       className='accordion-summary'
       >
-        <Typography>Estimated Rehab Costs</Typography>
+        <Typography>Utilities</Typography>
         <Typography className='accordion-total expenses'>{values.monthlyPayment}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
           <TextField
-              label='Estimated Rehab Costs'
+              label='Water'
               variant='filled'
               name='rehabCosts'
-              value={values.rehabCosts}
+              value={values.waterCost}
               fullWidth={true}
               InputProps={{
                   startAdornment: (
@@ -64,4 +60,4 @@ const RehabCosts = (props) => {
   )
 }
 
-export default RehabCosts
+export default Utilities
