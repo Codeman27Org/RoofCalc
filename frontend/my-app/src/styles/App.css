@@ -20,6 +20,15 @@
   align-items: center;
 }
 
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 9em;
+  width: 100%;
+}
+
 .button-box {
   margin-top: 15px;
 }
@@ -30,6 +39,10 @@
 
 .accordion-total {
   margin-left: auto !important;
+}
+
+.search-button {
+  padding-top: 10em;
 }
 
 .income {
@@ -63,12 +76,24 @@
   color: teal;
 }
 
-.MuiFormLabel-root.Mui-focused {
+/* .MuiFormLabel-root.Mui-focused {
   color: teal !important;
 }
 
 .MuiFilledInput-underline:after {
   border-bottom: 2px solid teal !important;
+} */
+.google-place-autocomplete, .md-form {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.google-places-autocomplete__input {
+  border-radius: 500px;
+  width: 80% !important;
 }
 
 .google-places-autocomplete__input:focus {
