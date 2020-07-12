@@ -57,14 +57,20 @@ const GoogleAutocomplete = (props) => {
 
   return (
     <div className='search-div'>
-      <HighlightOffIcon className='delete-icon'/>
-      <input
-        className='search-location-input'
-        ref={autoCompleteRef}
-        onChange={event => setQuery(event.target.value)}
-        placeholder="Address..."
-        value={query}
-      />
+        <TextField
+          className='search-location-input'
+          inputRef={autoCompleteRef}
+          onChange={event => setQuery(event.target.value)}
+          placeholder="Address..."
+          value={query}
+          InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <p className='clear-icon' onClick={ (event) => setQuery('') }>{query && <HighlightOffIcon className='delete-icon' color='primary'/>}</p>
+                </InputAdornment>
+              ),
+            }}
+        />
     </div>
   );
 }

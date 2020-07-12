@@ -1,6 +1,4 @@
 import React, {useState} from 'react'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
-import 'react-google-places-autocomplete/dist/index.min.css'
 import { Button } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GoogleAutocomplete from './GoogleAutocomplete'
