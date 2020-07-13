@@ -58,7 +58,9 @@ const PrincipalAndInterest = (props) => {
   }, [values.downPayment])
 
   useEffect(() => {
-    props.changeValue(parseInt(values.monthlyPayment.replace('$', '')), 'principalAndInterest')
+    console.log(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')))
+    console.log(values.monthlyPayment)
+    props.changeValue(parseInt(values.monthlyPayment.replace(/[$,]/g, '')), 'principalAndInterest')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 
@@ -71,6 +73,7 @@ const PrincipalAndInterest = (props) => {
 
   useEffect(() => {
     props.changeValue(parseInt(values.closingCosts.toString().replace(/[$,]/g, '')), 'loanCosts')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.closingCosts])
 
   useEffect(() => {

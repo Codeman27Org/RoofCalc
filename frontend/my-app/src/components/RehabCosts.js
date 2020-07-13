@@ -18,10 +18,12 @@ const RehabCosts = (props) => {
 
     useEffect(() => {
       setValues((values) => ({ ...values, monthlyPayment: formatter.format(values.rehabCosts.toString().replace(/,/g, ''))}))
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values.rehabCosts])
 
     useEffect(() => {
       props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'rehabCosts')
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values.monthlyPayment])
 
   const formatter = new Intl.NumberFormat('en-US', {

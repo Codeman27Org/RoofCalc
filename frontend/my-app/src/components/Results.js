@@ -32,11 +32,13 @@ const Results = (props) => {
   }
 
   const changeValue = (value, name) => {
+    console.log(name + ' ' + value)
     setValues((values) => ({...values, [name]: value}))
   }
 
   useEffect(() => {
     setValues((values) => ({...values, cashOnCashReturn: (((values.netRentalIncome - values.principalAndInterest) * 12)/ (values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
+
   }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts])
 
   useEffect(() => {

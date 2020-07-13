@@ -46,6 +46,7 @@ const GoogleAutocomplete = (props) => {
 
   useEffect(() => {
     props.updateAddress(query)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const GoogleAutocomplete = (props) => {
       `https://maps.googleapis.com/maps/api/js?key=AIzaSyCgNXXDm46LHt0rmgndPsBIrbIYNYLGsM8&libraries=places`,
       () => handleScriptLoad(setQuery, autoCompleteRef)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
