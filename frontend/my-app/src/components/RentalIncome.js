@@ -21,7 +21,7 @@ const RentalIncome = (props) => {
         if (event.target.name.includes('Amount')) {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
         } else {
-          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0+))/g, '$1')})
         }
       }
     }

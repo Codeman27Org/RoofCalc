@@ -32,7 +32,6 @@ const Results = (props) => {
   }
 
   const changeValue = (value, name) => {
-    console.log(name + ' ' + value)
     setValues((values) => ({...values, [name]: value}))
   }
 

@@ -38,8 +38,9 @@ const PrincipalAndInterest = (props) => {
       if (event.target.value === '' || re.test(event.target.value)) {
         if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
-        } else {
-          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|0+)/g, '$1')})
+        }
+        else {
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0+))/g, '$1')})
         }
       }
     }
@@ -58,8 +59,6 @@ const PrincipalAndInterest = (props) => {
   }, [values.downPayment])
 
   useEffect(() => {
-    console.log(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')))
-    console.log(values.monthlyPayment)
     props.changeValue(parseInt(values.monthlyPayment.replace(/[$,]/g, '')), 'principalAndInterest')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
