@@ -17,7 +17,7 @@ const Utilities = (props) => {
     }
 
     useEffect(() => {
-      props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'rehabCosts')
+      props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'utilities')
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values.monthlyPayment])
 

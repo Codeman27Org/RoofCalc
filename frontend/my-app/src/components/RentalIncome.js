@@ -95,7 +95,7 @@ const RentalIncome = (props) => {
                   </InputAdornment>
                 ),
               }}
-            onChange={(event, value)=> handleChange(event, value)}
+            onChange={(event)=> handleChange(event)}
           />
           <div className='two-column'>
             <TextField
@@ -113,7 +113,7 @@ const RentalIncome = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
             <TextField
                 label=' '
@@ -128,7 +128,7 @@ const RentalIncome = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
           </div>
           <div className='two-column'>
@@ -147,7 +147,7 @@ const RentalIncome = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
               <TextField
                   label=' '
@@ -162,7 +162,7 @@ const RentalIncome = (props) => {
                         </InputAdornment>
                       ),
                     }}
-                  onChange={(event, value)=> handleChange(event, value)}
+                  onChange={(event)=> handleChange(event)}
             />
           </div>
           <div className='two-column'>
@@ -181,7 +181,7 @@ const RentalIncome = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
               <TextField
                   label=' '
@@ -196,7 +196,7 @@ const RentalIncome = (props) => {
                         </InputAdornment>
                       ),
                     }}
-                  onChange={(event, value)=> handleChange(event, value)}
+                  onChange={(event)=> handleChange(event)}
             />
           </div>
         </FormControl>

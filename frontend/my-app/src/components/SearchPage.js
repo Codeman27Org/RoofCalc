@@ -14,7 +14,7 @@ const SearchPage = (props) => {
     }
 
     return (
-      <div className='search-page'>
+      <div className='search'>
         <div className='search-section'>
           <h1><span className='roof'>Logo</span>\Here</h1>
           <GoogleAutocomplete

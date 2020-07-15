@@ -60,13 +60,13 @@ class App extends Component {
             >
             {items =>
               items
-                ? props => <div style={props}>
+                ? props => <div style={props} className='search-page'>
                   <SearchPage
                     updateAddress={this.updateAddress}
                     search={this.search}
                   />
                 </div>
-                : props => <div style={props}>
+                : props => <div style={props} className='results-page'>
                   <Results
                     results={this.state.results}
                     switch={this.switchScreens}

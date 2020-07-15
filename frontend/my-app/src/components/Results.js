@@ -20,11 +20,12 @@ const Results = (props) => {
       insurance: 0,
       floodInsurance: 0,
       propertyTaxes: 0,
-      rentRatio: 0,
+      capRate: 0,
       loanCosts: 0,
       rehabCosts: 0,
       cashOnCashReturn: 0,
-      netIncome: 0
+      netIncome: 0,
+      utilities: 0
     })
 
   const downPaymentPercChange = (value) => {
@@ -41,7 +42,7 @@ const Results = (props) => {
   }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts])
 
   useEffect(() => {
-    setValues((values) => ({...values, rentRatio: (100.0 * values.grossRentalIncome/values.housePrice).toFixed(2)}))
+    setValues((values) => ({...values, capRate: (100 * (values.netRentalIncome - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities)/values.housePrice).toFixed(2)}))
   }, [values.netRentalIncome, values.housePrice])
 
   useEffect(() => {

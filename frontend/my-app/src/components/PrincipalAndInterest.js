@@ -111,7 +111,7 @@ const PrincipalAndInterest = (props) => {
                   </InputAdornment>
                 ),
               }}
-            onChange={(event, value)=> handleChange(event, value)}
+            onChange={(event)=> handleChange(event)}
           />
           <div className='two-column'>
             <TextField
@@ -128,7 +128,7 @@ const PrincipalAndInterest = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
             <TextField
                 label=' '
@@ -144,7 +144,7 @@ const PrincipalAndInterest = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
           </div>
           <div className='two-column'>
@@ -154,7 +154,7 @@ const PrincipalAndInterest = (props) => {
                 name='loanType'
                 value={values.loanType}
                 fullWidth={true}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
             <TextField
                 label='Interest Rate'
@@ -169,7 +169,7 @@ const PrincipalAndInterest = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                onChange={(event, value)=> handleChange(event, value)}
+                onChange={(event)=> handleChange(event)}
             />
           </div>
           <TextField
@@ -186,7 +186,7 @@ const PrincipalAndInterest = (props) => {
                     </InputAdornment>
                   ),
                 }}
-              onChange={(event, value)=> handleChange(event, value)}
+              onChange={(event)=> handleChange(event)}
             />
         </FormControl>
       </ExpansionPanelDetails>

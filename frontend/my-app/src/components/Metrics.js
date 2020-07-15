@@ -12,8 +12,8 @@ const Metrics = (props) => {
         <p className='metric-value'>{isFinite(props.values.cashOnCashReturn) ? props.values.cashOnCashReturn : 0}%</p>
       </div>
       <div className = 'rent-ratio'>
-        <p className='metric-label'>Rent Ratio</p>
-        <p className='metric-value'>{isFinite(props.values.rentRatio) ? props.values.rentRatio : 0}%</p>
+        <p className='metric-label'>Cap Rate</p>
+        <p className='metric-value'>{isFinite(props.values.capRate) ? props.values.capRate : 0}%</p>
       </div>
     </div>
   )
