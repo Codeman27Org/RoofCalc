@@ -42,5 +42,9 @@ def get_data():
 
     return jsonify(data)
 
+@application.errorhandler(Exception)
+def exception_handler(error):
+    return "!!!!"  + repr(error)
+
 if __name__ == '__main__':
     application.run(debug=True)
