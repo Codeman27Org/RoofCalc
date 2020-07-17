@@ -8,10 +8,11 @@ const api = 'http://127.0.0.1:5000'
 export const getAll = (address) =>
   fetch(`${api}/analysis?address=${address}`)
    .then(response => {
-     console.log(response)
+     if(!response.ok) {
+       throw Error(response.statusText)
+     }
      return response.json()
    })
    .then(data => {
-     console.log(data)
      return data
    })

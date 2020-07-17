@@ -44,7 +44,7 @@ def get_data():
 
 @application.errorhandler(Exception)
 def exception_handler(error):
-    return "!!!!"  + repr(error)
+    return '500'
 
 if __name__ == '__main__':
     application.run(debug=True)
