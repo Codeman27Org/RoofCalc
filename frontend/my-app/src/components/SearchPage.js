@@ -19,12 +19,14 @@ const SearchPage = (props) => {
           <h1><span className='roof'>Logo</span>\Here</h1>
           <GoogleAutocomplete
             updateAddress={props.updateAddress}
+            badAddress={props.badAddress}
+            updateError={props.updateError}
           />
-          {values.disabled && <LinearProgress style={{ width: '80%' }} />}
+        {values.disabled && !props.badAddress && <LinearProgress style={{ width: '80%' }} />}
         </div>
         <div className='search-button'>
           <Button variant='outlined' color='primary' onClick={handleClick}
-            disabled={values.disabled}>
+            disabled={values.disabled && !props.badAddress}>
             Search
           </Button>
         </div>

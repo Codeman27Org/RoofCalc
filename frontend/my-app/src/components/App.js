@@ -25,7 +25,7 @@ class App extends Component {
     inputAddress: '',
     results: {},
     showResults: true,
-    error: false
+    badAddress: false
   }
 
   switchScreens = () => {
@@ -36,11 +36,15 @@ class App extends Component {
     this.setState({inputAddress: input})
   }
 
+  updateError = () => {
+    this.setState({badAddress: !this.state.badAddress})
+  }
+
   search = () => {
     if(this.state.inputAddress !== ''){
       RealEstateAPI.getAll(this.state.inputAddress).then(data => {
         if(data === 500) {
-          this.setState({error: true})
+          this.setState({badAddress: !this.state.badAddress})
           return
         }
         this.setState({results: data})
@@ -69,7 +73,8 @@ class App extends Component {
                   <SearchPage
                     updateAddress={this.updateAddress}
                     search={this.search}
-                    error={this.error}
+                    badAddress={this.state.badAddress}
+                    updateError={this.updateError}
                   />
                 </div>
                 : props => <div style={props} className='results-page'>
