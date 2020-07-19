@@ -37,17 +37,19 @@ const Results = (props) => {
   }
 
   useEffect(() => {
-    setValues((values) => ({...values, cashOnCashReturn: (((values.netRentalIncome - values.principalAndInterest) * 12)/ (values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
+    setValues((values) => ({...values, cashOnCashReturn:
+      (((values.netRentalIncome - values.principalAndInterest - values.utilities - values.insurance - values.floodInsurance - values.propertyTaxes) * 12)/ 
+      (values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
 
-  }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts])
+  }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts, values.utilities])
 
   useEffect(() => {
     setValues((values) => ({...values, capRate: (100 * (values.netRentalIncome - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities)/values.housePrice).toFixed(2)}))
-  }, [values.netRentalIncome, values.housePrice])
+  }, [values.netRentalIncome, values.housePrice, values.insurance, values.floodInsurance, values.propertyTaxes, values.utilities])
 
   useEffect(() => {
-    setValues((values) => ({...values, netIncome: values.netRentalIncome - values.principalAndInterest - values.insurance - values.floodInsurance - values.propertyTaxes}))
-  }, [values.netRentalIncome, values.principalAndInterest, values.insurance, values.floodInsurance, values.propertyTaxes])
+    setValues((values) => ({...values, netIncome: values.netRentalIncome - values.principalAndInterest - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities}))
+  }, [values.netRentalIncome, values.principalAndInterest, values.insurance, values.floodInsurance, values.propertyTaxes, values.utilities])
 
   return (
     <div className='results'>

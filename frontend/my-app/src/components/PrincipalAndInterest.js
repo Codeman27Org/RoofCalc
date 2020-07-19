@@ -36,11 +36,11 @@ const PrincipalAndInterest = (props) => {
       const re = /^[.,0-9\b]+$/;
       // if value is not blank, then test the regex and only accept numbers
       if (event.target.value === '' || re.test(event.target.value)) {
-        if (event.target.name === 'zestimate' || event.target.name === 'downPayment') {
+        if (event.target.name === 'zestimate' || event.target.name === 'downPayment' || event.target.name === 'closingCosts') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
         }
         else {
-          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0+))/g, '$1')})
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0))\d/g, '$1')})
         }
       }
     }
@@ -176,7 +176,6 @@ const PrincipalAndInterest = (props) => {
               label='Est. Loan Costs'
               variant='filled'
               name='closingCosts'
-              onFocus={() => setValues({...values, percActive: false})}
               fullWidth={true}
               value={values.closingCosts}
               InputProps={{

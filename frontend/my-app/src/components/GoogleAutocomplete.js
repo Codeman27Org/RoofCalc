@@ -4,9 +4,6 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 
 const GoogleAutocomplete = (props) => {
   const [query, setQuery] = useState('')
-  const [values, setValues] = useState({
-    error: props.badAddress
-  })
   const autoCompleteRef = useRef(null)
 
   let autoComplete
@@ -49,7 +46,8 @@ const GoogleAutocomplete = (props) => {
 
   const clearAddress = () => {
     setQuery('')
-    // setValues({...values, error: false})
+    props.updateError()
+    props.disableButton()
   }
 
   useEffect(() => {
@@ -70,8 +68,8 @@ const GoogleAutocomplete = (props) => {
         <TextField
           className='search-location-input'
           inputRef={autoCompleteRef}
-          error={values.error}
-          helperText={values.error ? 'Incorrect Address' : ''}
+          error={props.badAddress}
+          helperText={props.badAddress ? 'Incorrect Address' : ''}
           onChange={event => setQuery(event.target.value)}
           placeholder='Address...'
           value={query}

@@ -5,6 +5,8 @@ import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDet
 const Utilities = (props) => {
   const [values, setValues] = useState({
       waterCost: 0,
+      energyCost: 0,
+      hoaCost: 0,
       monthlyPayment: 0
     })
 
@@ -15,6 +17,14 @@ const Utilities = (props) => {
         setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
       }
     }
+
+    useEffect(() => {
+      let waterCostInt = parseInt(values.waterCost.toString().replace(',', ''))
+      let energyCostInt = parseInt(values.energyCost.toString().replace(',', ''))
+      let hoaCostInt = parseInt(values.hoaCost.toString().replace(',', ''))
+
+      setValues({...values, monthlyPayment: formatter.format(waterCostInt + energyCostInt + hoaCostInt)})
+    }, [values.waterCost, values.energyCost, values.hoaCost])
 
     useEffect(() => {
       props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'utilities')
@@ -36,15 +46,45 @@ const Utilities = (props) => {
       className='accordion-summary'
       >
         <Typography>Utilities</Typography>
-        <Typography className='accordion-total expenses'>{values.monthlyPayment}</Typography>
+        <Typography className='accordion-total expenses'>{values.monthlyPayment}/Mo</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <FormControl fullWidth>
           <TextField
-              label='Water'
+              label='Water\Sewer'
               variant='filled'
-              name='rehabCosts'
+              name='waterCost'
               value={values.waterCost}
+              fullWidth={true}
+              InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <p>$</p>
+                    </InputAdornment>
+                  ),
+                }}
+              onChange={(event)=> handleChange(event)}
+          />
+          <TextField
+              label='Gas\Electric'
+              variant='filled'
+              name='energyCost'
+              value={values.energyCost}
+              fullWidth={true}
+              InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <p>$</p>
+                    </InputAdornment>
+                  ),
+                }}
+              onChange={(event)=> handleChange(event)}
+          />
+          <TextField
+              label="Homeowner's Assocation"
+              variant='filled'
+              name='hoaCost'
+              value={values.hoaCost}
               fullWidth={true}
               InputProps={{
                   startAdornment: (
