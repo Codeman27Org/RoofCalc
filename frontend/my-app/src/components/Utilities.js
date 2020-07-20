@@ -23,7 +23,8 @@ const Utilities = (props) => {
       let energyCostInt = parseInt(values.energyCost.toString().replace(',', ''))
       let hoaCostInt = parseInt(values.hoaCost.toString().replace(',', ''))
 
-      setValues({...values, monthlyPayment: formatter.format(waterCostInt + energyCostInt + hoaCostInt)})
+      setValues((values) => ({...values, monthlyPayment: formatter.format(waterCostInt + energyCostInt + hoaCostInt)}))
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values.waterCost, values.energyCost, values.hoaCost])
 
     useEffect(() => {

@@ -25,8 +25,8 @@ const PropertyTaxes = (props) => {
       if (event.target.value === '' || re.test(event.target.value)) {
         if (event.target.name === 'taxAmount') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
-        } else {
-          setValues({ ...values, [event.target.name]: (event.target.value === '' || event.target.value === '.') ? 0.0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0+))/g, '$1')})
+        } else if (event.target.value.match(/^\d*(\.\d*)?$/g)) {
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')})
         }
       }
     }

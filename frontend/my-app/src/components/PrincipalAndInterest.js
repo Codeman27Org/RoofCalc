@@ -39,8 +39,8 @@ const PrincipalAndInterest = (props) => {
         if (event.target.name === 'zestimate' || event.target.name === 'downPayment' || event.target.name === 'closingCosts') {
           setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
         }
-        else {
-          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/\b(?:0*(0\.\d+)|(^0))\d/g, '$1')})
+        else if (event.target.value.match(/^\d*(\.\d*)?$/g)) {
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')})
         }
       }
     }

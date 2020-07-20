@@ -96,7 +96,9 @@ const Insurance = (props) => {
                         title="Mortgage insurance is usually required under 20% down payment"
                         enterTouchDelay={100}
                         >
-                        <InfoIcon />
+                        <InfoIcon
+                          className='info-icon'
+                        />
                       </Tooltip>
                       </InputAdornment>
                     ),
