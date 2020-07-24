@@ -8,6 +8,7 @@ import RentalIncome from './RentalIncome'
 import Metrics from './Metrics'
 import RehabCosts from './RehabCosts'
 import Utilities from './Utilities'
+import logo from '../RoofCalc.png'
 
 const Results = (props) => {
   const [values, setValues] = useState({
@@ -38,7 +39,7 @@ const Results = (props) => {
 
   useEffect(() => {
     setValues((values) => ({...values, cashOnCashReturn:
-      (((values.netRentalIncome - values.principalAndInterest - values.utilities - values.insurance - values.floodInsurance - values.propertyTaxes) * 12)/ 
+      (((values.netRentalIncome - values.principalAndInterest - values.utilities - values.insurance - values.floodInsurance - values.propertyTaxes) * 12)/
       (values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
 
   }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts, values.utilities])
@@ -53,7 +54,7 @@ const Results = (props) => {
 
   return (
     <div className='results'>
-      <h1><span className='roof'>Logo</span>\Here</h1>
+      <img src={logo} alt='logo' className='logo'/>
       <Metrics
           values = {values}
       />

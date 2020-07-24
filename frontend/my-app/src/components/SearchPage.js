@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Button } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GoogleAutocomplete from './GoogleAutocomplete'
+import logo from '../RoofCalc.png'
 
 const SearchPage = (props) => {
     const [values, setValues] = useState({
@@ -20,7 +21,8 @@ const SearchPage = (props) => {
     return (
       <div className='search'>
         <div className='search-section'>
-          <h1><span className='roof'>Logo</span>\Here</h1>
+          <img src={logo} alt='logo' className='logo'/>
+          <p className='app-description'>Analyze investment properties</p>
           <GoogleAutocomplete
             updateAddress={props.updateAddress}
             badAddress={props.badAddress}
