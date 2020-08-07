@@ -34,7 +34,7 @@ def search_results(address, citystatezip):
 
 # address = 'does not work yet'
 from location import location
-loc = location('1347-White-Ave-Grand-Junction-CO-81501')
+loc = location('428-29-1/2-Rd-Grand-Junction-CO-81504-USA')
 address = loc['address'].replace(' ', '-')
 citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
 print(search_results(address, citystatezip))

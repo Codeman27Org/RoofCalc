@@ -16,3 +16,5 @@ def location(address):
     location_parts['zip'] = result.postal
     location_parts['county'] = str.strip((result.county).replace('County', ''))
     return location_parts
+
+# print(location('1347-White-Ave-Grand-Junction-CO-81501'))

@@ -7,7 +7,6 @@ from mortgage_calc import mortgage_calc, mortgage_calc_perc
 from property_taxes import property_taxes
 from insurance import *
 from expenses import *
-from analyze import *
 
 application = Flask(__name__)
 CORS(application)
@@ -15,8 +14,7 @@ CORS(application)
 @application.route('/analysis', methods=['GET'])
 def get_data():
     user_input = {
-        'rehab_costs': 20000,
-        'address': ''
+        'address': '445-San-Juan-St-Grand-Junction-CO-81504-USA'
     }
     user_input['address'] = request.args.get('address', default='')
     user_input['address'] = user_input['address'].replace(',', '').replace(' ', '-')
@@ -37,7 +35,6 @@ def get_data():
     data['vacancy'] = vacancy(0.1, data['zestimates']['rent_zestimate'])
     data['repairs'] = repairs(0.1, data['zestimates']['rent_zestimate'])
     data['closing_costs'] = closing_costs_perc(data['monthly_mortgage']['loan_amount'])
-    data['rehab_costs'] = user_input['rehab_costs']
     data['input_address'] = user_input['address']
 
     return jsonify(data)

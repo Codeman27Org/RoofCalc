@@ -23,7 +23,7 @@ def mortgage_rates(loan_type):
 
     return rate_data
 
-#print(mortgage_rates('30-year fixed rate'))
+# print(mortgage_rates('30-year fixed rate'))
 # print(mortgage_rates('15-year fixed rate'))
 # print(mortgage_rates('5/1 ARM rate'))
 #encode('utf-8')

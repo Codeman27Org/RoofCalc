@@ -31,5 +31,5 @@ def mortgage_calc_perc(house_price, down_payment_perc, interest_rate, loan_type)
     return mortgage
 
 
-print(mortgage_calc(273518, 54704, 0.03201, 30))
+# print(mortgage_calc(273518, 54704, 0.03201, 30))
 #print(mortgage_calc_perc(150000, 0.2, 0.045, 30))
