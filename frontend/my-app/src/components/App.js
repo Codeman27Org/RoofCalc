@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   updateError = () => {
-    this.setState({badAddress: !this.state.badAddress})
+    this.setState({badAddress: false})
   }
 
   search = () => {

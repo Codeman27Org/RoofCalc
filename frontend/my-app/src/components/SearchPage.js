@@ -9,12 +9,17 @@ const SearchPage = (props) => {
         disabled: false
     })
 
-    const disableButton = () => {
-      setValues((values) => ({...values, disabled: !values.disabled}))
+    const disableButton = (action = 'nothing') => {
+      if (action === 'search'){
+        setValues((values) => ({...values, disabled: true}))
+      }
+      else {
+        setValues((values) => ({...values, disabled: false}))
+      }
     }
 
     const handleClick = () => {
-      disableButton()
+      disableButton('search')
       props.search(props.inputAddress)
     }
 
@@ -28,6 +33,7 @@ const SearchPage = (props) => {
             badAddress={props.badAddress}
             updateError={props.updateError}
             disableButton={disableButton}
+            disabled={values.disabled}
           />
         {values.disabled && !props.badAddress && <LinearProgress style={{ width: '80%' }} />}
         </div>

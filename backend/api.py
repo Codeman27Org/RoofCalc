@@ -44,4 +44,4 @@ def exception_handler(error):
     return '500'
 
 if __name__ == '__main__':
-    application.run(debug=True)
+    application.run(debug=False)

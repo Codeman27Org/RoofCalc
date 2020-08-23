@@ -45,9 +45,11 @@ const GoogleAutocomplete = (props) => {
   }
 
   const clearAddress = () => {
-    setQuery('')
-    props.updateError()
-    props.disableButton()
+    if(!props.disabled) {
+      setQuery('')
+      props.updateError()
+      props.disableButton()
+    }
   }
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const GoogleAutocomplete = (props) => {
 
   useEffect(() => {
     loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=AIzaSyCgNXXDm46LHt0rmgndPsBIrbIYNYLGsM8&libraries=places`,
+      `https://maps.googleapis.com/maps/api/js?key=AIzaSyCuKTXrmZFwNhgQtln2xZdtmRfR_c218Bk&libraries=places`,
       () => handleScriptLoad(setQuery, autoCompleteRef)
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps

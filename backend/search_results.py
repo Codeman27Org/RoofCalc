@@ -23,6 +23,7 @@ def search_results(address, citystatezip):
     df = pd.DataFrame.from_records(dict['SearchResults:searchresults']['response']['results']['result'])
 
     zestimates = {}
+    print(df['zestimate'])
     try:
         zestimates['zestimate'] = float(df['zestimate']['amount']['#text'])
         zestimates['rent_zestimate'] = float(df['rentzestimate']['amount']['#text'])
@@ -34,7 +35,10 @@ def search_results(address, citystatezip):
 
 # address = 'does not work yet'
 from location import location
-loc = location('428-29-1/2-Rd-Grand-Junction-CO-81504-USA')
+loc = location('428 29 1/2 Rd Grand Junction CO 81504')
+# loc = location('1810 E Palm Ave Apt 4208 Tampa, FL, 33605')
 address = loc['address'].replace(' ', '-')
 citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
+print(address)
+print(citystatezip)
 print(search_results(address, citystatezip))
