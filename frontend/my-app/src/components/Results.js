@@ -46,7 +46,7 @@ const Results = (props) => {
   }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts, values.utilities, values.floodInsurance, values.insurance, values.propertyTaxes])
 
   useEffect(() => {
-    setValues((values) => ({...values, capRate: (100 * (values.netRentalIncome - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities)/values.housePrice).toFixed(2)}))
+    setValues((values) => ({...values, capRate: (100 * ((values.netRentalIncome * 12) - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities)/values.housePrice).toFixed(2)}))
   }, [values.netRentalIncome, values.housePrice, values.insurance, values.floodInsurance, values.propertyTaxes, values.utilities])
 
   useEffect(() => {
