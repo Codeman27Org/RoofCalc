@@ -26,7 +26,7 @@ const Results = (props) => {
       rehabCosts: 0,
       cashOnCashReturn: 0,
       netIncome: 0,
-      utilities: 0
+      utilities: 0,
     })
 
   const downPaymentPercChange = (value) => {
@@ -34,15 +34,13 @@ const Results = (props) => {
   }
 
   const changeValue = (value, name) => {
+    console.log(value + name)
     setValues((values) => ({...values, [name]: value}))
   }
 
   useEffect(() => {
     setValues((values) => ({...values, cashOnCashReturn:
-      (((values.netRentalIncome - values.principalAndInterest - values.utilities - values.insurance - values.floodInsurance - values.propertyTaxes) * 12)/
-      (values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
-
-
+      ((values.netIncome * 12)/(values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
   }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts, values.utilities, values.floodInsurance, values.insurance, values.propertyTaxes])
 
   useEffect(() => {
@@ -56,6 +54,7 @@ const Results = (props) => {
   return (
     <div className='results'>
       <img src={logo} alt='logo' className='logo'/>
+      <p className='app-description'>{props.inputAddress}</p>
       <Metrics
           values = {values}
       />

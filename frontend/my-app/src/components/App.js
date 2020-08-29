@@ -81,6 +81,7 @@ class App extends Component {
                   <Results
                     results={this.state.results}
                     switch={this.switchScreens}
+                    inputAddress={this.state.inputAddress}
                   />
                 </div>
             }

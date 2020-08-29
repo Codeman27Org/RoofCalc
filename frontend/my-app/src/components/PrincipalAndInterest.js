@@ -25,10 +25,12 @@ const PrincipalAndInterest = (props) => {
 
     const downPaymentCalc = (type, value, housePrice) => {
       if (type === 'percent') {
-        setValues({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
+        // setValues({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
+        setValues((values) => ({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}))
       }
       else {
-        setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
+        // setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
+        setValues((values) => ({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)}))
       }
     }
 
@@ -52,9 +54,9 @@ const PrincipalAndInterest = (props) => {
   }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate])
 
   useEffect(() => {
+    props.changeValue(parseInt(values.downPayment.toString().replace(/[$,]/g, '')), 'downPayment')
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
     downPaymentCalc('amount', values.downPayment, values.zestimate)
-    props.changeValue(parseInt(values.downPayment.toString().replace(/[$,]/g, '')), 'downPayment')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.downPayment])
 
