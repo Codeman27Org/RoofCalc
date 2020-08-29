@@ -12,10 +12,10 @@ const PropertyTaxes = (props) => {
 
     const taxAmountCalc = (type, value, housePrice) => {
       if (type === 'percent') {
-        setValues({...values, taxAmount: formatter.format(Math.round((value/100) * parseInt(housePrice.toString().replace(/,/g, '')))).replace('$', '')}) //divide by 100 to get it as a percent again
+        setValues((values) => ({...values, taxAmount: formatter.format(Math.round((value/100) * parseInt(housePrice.toString().replace(/,/g, '')))).replace('$', '')}))//divide by 100 to get it as a percent again
       }
       else {
-        setValues({...values, taxRate: ((parseInt(value.toString().replace(/,/g, ''))/parseInt(housePrice.toString().replace(/,/g, ''))) * 100).toFixed(2)})
+        setValues((values) => ({...values, taxRate: ((parseInt(value.toString().replace(/,/g, ''))/parseInt(housePrice.toString().replace(/,/g, ''))) * 100).toFixed(2)}))
       }
     }
 
@@ -24,9 +24,9 @@ const PropertyTaxes = (props) => {
       // if value is not blank, then test the regex and only accept numbers
       if (event.target.value === '' || re.test(event.target.value)) {
         if (event.target.name === 'taxAmount') {
-          setValues({ ...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')})
+          setValues((values) => ({...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')}))
         } else if (event.target.value.match(/^\d*(\.\d*)?$/g)) {
-          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')})
+          setValues((values) => ({...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')}))
         }
       }
     }
@@ -37,7 +37,7 @@ const PropertyTaxes = (props) => {
   }, [values.monthlyPayment])
 
   useEffect(() => {
-    setValues({ ...values, monthlyPayment: formatter.format(Math.round(values.taxAmount.replace(/,/g, '')/12))})
+    setValues((values) => ({...values, monthlyPayment: formatter.format(Math.round(values.taxAmount.replace(/,/g, '')/12))}))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.taxAmount, values.taxRate])
 
@@ -45,13 +45,18 @@ const PropertyTaxes = (props) => {
     if (values.percActive) return //Don't want current textfield changing while the user is changing it
     taxAmountCalc('amount', values.taxAmount, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.taxAmount]);
+  }, [values.taxAmount])
 
   useEffect(() => {
     if (!values.percActive) return //Don't want current textfield changing while the user is changing it
     taxAmountCalc('percent', values.taxRate, props.housePrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.taxRate]);
+  }, [values.taxRate])
+
+  useEffect(() => {
+    taxAmountCalc('percent', values.taxRate, props.housePrice)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.housePrice])
 
   useEffect(() => {
     setValues({ ...values, monthlyPayment: formatter.format(Math.round(values.taxAmount.replace(/,/g, '')/12))})

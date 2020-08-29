@@ -8,9 +8,10 @@ const Insurance = (props) => {
       pmiChecked: false,
       pmi: props.values.pmi.yearly.toLocaleString('en-US'),
       fiChecked: false,
-      fi: props.values.fi.yearly.toLocaleString('en-US'),
       pi: props.values.pi.yearly.toLocaleString('en-US'),
       monthlyPayment: 0,
+      insuranceRate: 0.005365,
+      pmiInsuranceRate: 0.01
     })
 
   useEffect(() => {
@@ -25,11 +26,17 @@ const Insurance = (props) => {
 
   useEffect(() => {
     let pmi = values.pmiChecked ? parseInt(values.pmi.replace(/,/g, '')) : 0
-    let pi = parseInt(values.pi.replace(/,/g, ''))
+    let pi = parseInt(values.pi.toString().replace(/,/g, ''))
 
     setValues({ ...values, monthlyPayment: formatter.format(((pmi + pi)/12).toFixed(0))});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.pmi, values.pmiChecked, values.pi])
+
+  useEffect(() => {
+    setValues((values) => ({...values, pi: formatter.format((props.housePrice * values.insuranceRate).toFixed(0)).replace('$', '')}))
+    setValues((values) => ({...values, pmi: formatter.format((props.housePrice * values.pmiInsuranceRate).toFixed(0)).replace('$', '')}))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.housePrice])
 
   const handleChange = (event, value) => {
     const re = /^[.,0-9\b]+$/

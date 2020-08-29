@@ -34,7 +34,6 @@ const Results = (props) => {
   }
 
   const changeValue = (value, name) => {
-    console.log(value + name)
     setValues((values) => ({...values, [name]: value}))
   }
 
@@ -74,11 +73,13 @@ const Results = (props) => {
           values = {props.results}
           downPaymentPerc = {values.downPaymentPerc}
           changeValue = {changeValue}
+          housePrice = {values.housePrice}
         />
         <FloodInsurance
           values = {props.results}
           downPaymentPerc = {values.downPaymentPerc}
           changeValue = {changeValue}
+          housePrice = {values.housePrice}
         />
         <PropertyTaxes
           values = {props.results}

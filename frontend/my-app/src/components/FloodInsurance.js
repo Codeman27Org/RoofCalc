@@ -22,6 +22,11 @@ const FloodInsurance = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.fi, values.fiChecked])
 
+  useEffect(() => {
+    setValues((values) => ({...values, fi: formatter.format((props.housePrice/100 * 0.29).toFixed(0)).replace('$', '')}))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.housePrice])
+
   const handleChange = (event, value) => {
     const re = /^[.,0-9\b]+$/
     // if value is not blank, then test the regex and only accept numbers

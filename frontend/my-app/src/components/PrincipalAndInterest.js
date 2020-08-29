@@ -10,7 +10,7 @@ const PrincipalAndInterest = (props) => {
       loanType: '30-year',//props.values.mortgage_rate.loan_type,
       rate: (props.values.mortgage_rate.rate * 100).toString().slice(0,5),
       monthlyPayment: '',
-      percActive: false,
+      percActive: true,
       closingCosts: props.values.closing_costs.closing_costs.toLocaleString('en-US'),
     })
 
@@ -48,7 +48,7 @@ const PrincipalAndInterest = (props) => {
     }
 
   useEffect(() => {
-    props.changeValue(parseInt(values.zestimate.replace(',', '')), 'housePrice')
+    props.changeValue(parseInt(values.zestimate.replace(/,/g, '')), 'housePrice')
     monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.zestimate, values.downPayment, values.downPaymentPerc, values.loanType, values.rate])
@@ -76,6 +76,12 @@ const PrincipalAndInterest = (props) => {
     props.changeValue(parseInt(values.closingCosts.toString().replace(/[$,]/g, '')), 'loanCosts')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.closingCosts])
+
+  useEffect(() => {
+    setValues((values) => ({...values, closingCosts: formatter.format(((values.zestimate).replace(/[$,]/g, '') * 0.035).toFixed(0)).replace(/[$]/g, '')}))
+    downPaymentCalc('percent', values.downPaymentPerc, values.zestimate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.zestimate])
 
   useEffect(() => {
    monthlyPaymentCalc(values.zestimate, values.downPayment, values.loanType, values.rate)
