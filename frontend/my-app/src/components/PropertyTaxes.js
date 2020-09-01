@@ -7,7 +7,7 @@ const PropertyTaxes = (props) => {
       taxAmount: props.values.taxes.tax_amt_yr.toLocaleString('en-US'),
       taxRate: (props.values.taxes.tax_rate * 100).toString().slice(0,4),
       monthlyPayment: '',
-      percActive: false
+      percActive: true
     })
 
     const taxAmountCalc = (type, value, housePrice) => {
@@ -26,13 +26,14 @@ const PropertyTaxes = (props) => {
         if (event.target.name === 'taxAmount') {
           setValues((values) => ({...values, [event.target.name]: formatter.format(event.target.value.toString().replace(/,/g, '')).replace('$', '')}))
         } else if (event.target.value.match(/^\d*(\.\d*)?$/g)) {
-          setValues((values) => ({...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')}))
+          setValues({ ...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')})
+          // setValues((values) => ({...values, [event.target.name]: event.target.value === '' ? 0 : event.target.value.replace(/(^0)(\d)/g, '$2')}))
         }
       }
     }
 
   useEffect(() => {
-    props.changeValue(parseInt(values.monthlyPayment.replace('$', '')), 'propertyTaxes')
+    props.changeValue(parseInt(values.monthlyPayment.replace(/[$,]/g, '')), 'propertyTaxes')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 

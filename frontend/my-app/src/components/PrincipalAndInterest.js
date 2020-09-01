@@ -25,11 +25,9 @@ const PrincipalAndInterest = (props) => {
 
     const downPaymentCalc = (type, value, housePrice) => {
       if (type === 'percent') {
-        // setValues({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}) //divide by 100 to get it as a percent again
         setValues((values) => ({...values, downPayment: formatter.format(Math.round((value/100) * housePrice.replace(/,/g, ''))).replace('$', '')}))
       }
       else {
-        // setValues({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)})
         setValues((values) => ({...values, downPaymentPerc: (value.replace(/,/g, '')/housePrice.replace(/,/g, '') * 100).toFixed(1)}))
       }
     }

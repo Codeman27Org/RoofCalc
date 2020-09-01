@@ -20,7 +20,7 @@ const Insurance = (props) => {
   }, [props])
 
   useEffect(() => {
-    props.changeValue(parseInt(values.monthlyPayment.toString().replace('$', '')), 'insurance')
+    props.changeValue(parseInt(values.monthlyPayment.toString().replace(/[$,]/g, '')), 'insurance')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.monthlyPayment])
 
