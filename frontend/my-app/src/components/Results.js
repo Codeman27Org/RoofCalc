@@ -8,6 +8,7 @@ import RentalIncome from './RentalIncome'
 import Metrics from './Metrics'
 import RehabCosts from './RehabCosts'
 import Utilities from './Utilities'
+import Demographics from './Demographics'
 import logo from '../RoofCalc.png'
 
 const Results = (props) => {
@@ -55,6 +56,9 @@ const Results = (props) => {
       <img src={logo} alt='logo' className='logo'/>
       <p className='app-description'>{props.inputAddress}</p>
       <Metrics
+          values = {values}
+      />
+      <Demographics
           values = {values}
       />
       <div className='accordion-area'>
