@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Button } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GoogleAutocomplete from './GoogleAutocomplete'
@@ -22,6 +22,11 @@ const SearchPage = (props) => {
       disableButton('search')
       props.search(props.inputAddress)
     }
+
+    useEffect(() => {
+      disableButton()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.badAddress])
 
     return (
       <div className='search'>

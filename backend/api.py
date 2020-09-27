@@ -7,6 +7,7 @@ from mortgage_calc import mortgage_calc, mortgage_calc_perc
 from property_taxes import property_taxes
 from insurance import *
 from expenses import *
+from data_usa import data_usa
 
 application = Flask(__name__)
 CORS(application)
@@ -21,7 +22,8 @@ def get_data():
 
     loc = location(user_input['address'])
     address = loc['address'].replace(' ', '-')
-    citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
+    citystate = loc['city'] + '-' + loc['state']
+    citystatezip = citystate +  '-'+ loc['zip']
     #
     data = {}
     data['zestimates'] = search_results(address, citystatezip)
@@ -36,6 +38,7 @@ def get_data():
     data['repairs'] = repairs(0.1, data['zestimates']['rent_zestimate'])
     data['closing_costs'] = closing_costs_perc(data['monthly_mortgage']['loan_amount'])
     data['input_address'] = user_input['address']
+    data['data_usa'] = data_usa(citystate.replace('-' , ', '))
 
     return jsonify(data)
 

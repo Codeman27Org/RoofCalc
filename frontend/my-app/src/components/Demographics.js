@@ -5,11 +5,11 @@ const Demographics = (props) => {
     <div className='demographics'>
         <div className = 'median-income'>
           <p className='demographic-label'>Median Income</p>
-          <p className='demographic-value'>$53,000 (+8.14%)</p>
+          <p className='demographic-value'>${props.dataUsa['Household Income by Race'].toLocaleString('en-US')} (+{(props.dataUsa['Household Income by Race_Change'] * 100).toFixed(3)}%)</p>
         </div>
         <div className = 'crime-rate'>
           <p className='demographic-label'>Crime Rate</p>
-          <p className='demographic-value'>94.97 (5.2)</p>
+          <p className='demographic-value'>94.97 (+5.2)</p>
         </div>
         <div className = 'population'>
           <p className='demographic-label'>Pop. Growth</p>

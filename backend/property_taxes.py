@@ -15,6 +15,8 @@ def property_taxes(state, county, house_price):
     table = soup.findAll('table')[7]
     df = pd.read_html(str(table))[0]
 
+    print(df)
+
     tax_data = {}
     tax_data['tax_rate'] = round(float(re.search(pattern, df[df['County'] == county]['Average Effective Property Tax Rate'].values[0]).group(1))/100, 4)
     tax_data['tax_amt_yr'] = round(tax_data['tax_rate'] * house_price)
@@ -22,4 +24,4 @@ def property_taxes(state, county, house_price):
 
     return tax_data
 
-#print(property_taxes('fl', 'Jefferson', 185900))
+# print(property_taxes('mo', '', 185900))

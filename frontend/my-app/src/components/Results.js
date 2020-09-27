@@ -41,7 +41,7 @@ const Results = (props) => {
   useEffect(() => {
     setValues((values) => ({...values, cashOnCashReturn:
       ((values.netIncome * 12)/(values.downPayment + values.loanCosts + values.rehabCosts) * 100).toFixed(2) }))
-  }, [values.netRentalIncome, values.principalAndInterest, values.downPayment, values.loanCosts, values.rehabCosts, values.utilities, values.floodInsurance, values.insurance, values.propertyTaxes])
+  }, [values.downPayment, values.loanCosts, values.rehabCosts, values.netIncome])
 
   useEffect(() => {
     setValues((values) => ({...values, capRate: (100 * ((values.netRentalIncome * 12) - values.insurance - values.floodInsurance - values.propertyTaxes - values.utilities)/values.housePrice).toFixed(2)}))
@@ -59,7 +59,7 @@ const Results = (props) => {
           values = {values}
       />
       <Demographics
-          values = {values}
+          dataUsa = {props.results.data_usa}
       />
       <div className='accordion-area'>
         <RentalIncome

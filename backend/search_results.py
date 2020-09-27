@@ -32,12 +32,11 @@ def search_results(address, citystatezip):
 
     return zestimates
 
-# address = 'does not work yet'
-# from location import location
-# loc = location('428 29 1/2 Rd Grand Junction CO 81504')
-# # loc = location('1810 E Palm Ave Apt 4208 Tampa, FL, 33605')
-# address = loc['address'].replace(' ', '-')
-# citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
-# print(address)
-# print(citystatezip)
-# print(search_results(address, citystatezip))
+from location import location
+loc = location('5018 Miami St, St. Louis, MO 63139')
+# loc = location('1810 E Palm Ave Apt 4208 Tampa, FL, 33605')
+address = loc['address'].replace(' ', '-')
+citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
+print(address)
+print(citystatezip)
+print(search_results(address, citystatezip))
