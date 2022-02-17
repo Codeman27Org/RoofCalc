@@ -4,28 +4,30 @@ import pandas as pd
 from pandas.io.json import json_normalize
 import api_keys
 
-def search_results(address, citystatezip):
-    url = 'https://www.zillow.com/webservice/GetSearchResults.htm'
+def search_results(address, city, state, zip):
+    url = 'https://api.bridgedataoutput.com/api/v2/zestimates_v2/zestimates'
     params = {
-        'zws-id': api_keys.ZILLOW_API_KEY,
+        'access_token': api_keys.ZILLOW_API_KEY,
         'address': address, #self._loc.state
-        'citystatezip': citystatezip,
-        'rentzestimate': True
+        'city': city,
+        'state': state,
+        'postalCode': zip
     }
     try:
-        result = requests.get(url, params=params)
+        response = requests.get(url, params=params)
     except requests.ConnectionError:
         print('failed to connect')
         return
 
-    dict = xmltodict.parse(result.content)
-    df = pd.DataFrame.from_records(dict['SearchResults:searchresults']['response']['results']['result'])
-
+    df = pd.DataFrame.from_dict(response.json()['bundle'])
+    print(address)
+    df = df[df['address'].str.contains(address)][['address', 'zestimate', 'rentalZestimate']]
+    print(df)
     zestimates = {}
-    print(df['zestimate'])
+
     try:
-        zestimates['zestimate'] = float(df['zestimate']['amount']['#text'])
-        zestimates['rent_zestimate'] = float(df['rentzestimate']['amount']['#text'])
+        zestimates['zestimate'] = float(df['zestimate'])
+        zestimates['rent_zestimate'] = float(df['rentalZestimate'])
     except:
         zestimates['zestimate'] = 0
         zestimates['rent_zestimate'] = 0
@@ -33,10 +35,11 @@ def search_results(address, citystatezip):
     return zestimates
 
 from location import location
-loc = location('5018 Miami St, St. Louis, MO 63139')
+loc = location('519 Florida Ave, Clearwater FL 33756')
 # loc = location('1810 E Palm Ave Apt 4208 Tampa, FL, 33605')
-address = loc['address'].replace(' ', '-')
-citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
-print(address)
-print(citystatezip)
-print(search_results(address, citystatezip))
+# address = loc['address'].replace(' ', '-')
+# citystatezip = loc['city'] + '-' + loc['state'] +  '-'+ loc['zip']
+print(loc)
+# print(address)
+# print(citystatezip)
+print(search_results(loc['address'], loc['city'], loc['state'], loc['zip']))
