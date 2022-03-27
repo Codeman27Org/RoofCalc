@@ -133,3 +133,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/.vs/VSWorkspaceState.json
+/.vs/RoofCalc/v17/.suo
+/.vs/slnx.sqlite
