@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+      - name: Remove node_modules and lockfile
+        run: rm -rf frontend/my-app/node_modules frontend/my-app/package-lock.json
       - name: Install dependencies
         run: cd frontend/my-app && npm install
       - name: Fix react-scripts permissions
