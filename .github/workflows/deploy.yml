@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: cd frontend/my-app && npm install
+      - name: Fix react-scripts permissions
+        run: chmod +x frontend/my-app/node_modules/.bin/react-scripts
       - name: Build Website
         run: cd frontend/my-app && npm run build
       - name: Set AWS credentials
