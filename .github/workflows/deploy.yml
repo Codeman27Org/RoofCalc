@@ -15,10 +15,8 @@ jobs:
         run: rm -rf frontend/my-app/node_modules frontend/my-app/package-lock.json
       - name: Install dependencies
         run: cd frontend/my-app && npm install
-      - name: Fix react-scripts permissions
-        run: chmod +x frontend/my-app/node_modules/.bin/react-scripts
       - name: Build Website
-        run: cd frontend/my-app && npm run build
+        run: cd frontend/my-app && NODE_OPTIONS=--openssl-legacy-provider npm run build
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
