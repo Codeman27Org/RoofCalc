@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import InfoIcon from '@material-ui/icons/Info'
-import { Checkbox,Tooltip, InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl } from '@material-ui/core'
+import { Checkbox, Tooltip, InputAdornment, TextField, Accordion, Typography, AccordionDetails, AccordionSummary, FormControl } from '@material-ui/core'
 
 const FloodInsurance = (props) => {
   const [values, setValues] = useState({
@@ -42,8 +42,8 @@ const FloodInsurance = (props) => {
   })
 
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary
+    <Accordion>
+      <AccordionSummary
       expandIcon={<ExpandMoreIcon className='expand-icon'/>}
       aria-controls='panel1a-content'
       id='panel1a-header'
@@ -51,8 +51,8 @@ const FloodInsurance = (props) => {
       >
         <Typography>Flood Insurance</Typography>
         <Typography className='accordion-total expenses'>{values.monthlyPayment}/Mo</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <FormControl fullWidth>
           <div className='two-column'>
             <Checkbox
@@ -87,8 +87,8 @@ const FloodInsurance = (props) => {
               />
           </div>
         </FormControl>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

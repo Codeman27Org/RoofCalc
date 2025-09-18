@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {InputAdornment, TextField, ExpansionPanel, Typography, ExpansionPanelDetails, ExpansionPanelSummary, FormControl} from '@material-ui/core'
+import {InputAdornment, TextField, Accordion, Typography, AccordionDetails, AccordionSummary, FormControl} from '@material-ui/core'
 
 const RehabCosts = (props) => {
   const [values, setValues] = useState({
@@ -33,8 +33,8 @@ const RehabCosts = (props) => {
   })
 
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary
+    <Accordion>
+      <AccordionSummary
       expandIcon={<ExpandMoreIcon className='expand-icon'/>}
       aria-controls='panel1a-content'
       id='panel1a-header'
@@ -42,8 +42,8 @@ const RehabCosts = (props) => {
       >
         <Typography>Estimated Rehab Costs</Typography>
         <Typography className='accordion-total expenses'>{values.monthlyPayment}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <FormControl fullWidth>
           <TextField
               label='Estimated Rehab Costs'
@@ -61,8 +61,8 @@ const RehabCosts = (props) => {
               onChange={(event)=> handleChange(event)}
           />
         </FormControl>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

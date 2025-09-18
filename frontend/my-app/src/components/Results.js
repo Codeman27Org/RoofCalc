@@ -54,7 +54,7 @@ const Results = (props) => {
   return (
     <div className='results'>
       <img src={logo} alt='logo' className='logo'/>
-      <p className='app-description'>{props.inputAddress}</p>
+      <p className='app-description'>{props.results.error ? props.results.error + ' - ' + props.inputAddress : props.inputAddress}</p>
       <Metrics
           values = {values}
       />
