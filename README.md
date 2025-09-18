@@ -89,7 +89,7 @@ The application includes robust error handling:
 
 ## Authors
 
-[Your Name/Organization]
+Cody Roof
 
 ---
 Note: Make sure to configure all necessary API keys and environment variables before running the application.
