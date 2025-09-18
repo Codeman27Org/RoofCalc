@@ -85,21 +85,11 @@ The application includes robust error handling:
    python api.py
    ```
 
-## Contributing
 
-This project is open for contributions. Key areas for potential improvements:
-- Additional property metrics
-- Enhanced data visualization
-- More detailed demographic analysis
-- Additional data sources integration
-
-## License
-
-[Add your chosen license here]
 
 ## Authors
 
-[Your Name/Organization]
+Cody Roof
 
 ---
 Note: Make sure to configure all necessary API keys and environment variables before running the application.
